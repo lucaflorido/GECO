@@ -100,6 +100,23 @@ var gecoApp = angular.module("gecoApp",["ngRoute",
             
         }
     }
+}).directive('onFinishChosenUpdateFullsize', function ($timeout) {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attrs) {
+					
+			scope.$watch(attrs.ngDataProvider, function() {
+					element.chosen({allow_single_deselect: true,width: "80%"});
+                    element.trigger("chosen:updated");
+			});
+            scope.$watch(attrs.ngModel, function() {
+					element.chosen({allow_single_deselect: true,width: "80%"});
+                    element.trigger("chosen:updated");
+			});
+                
+            
+        }
+    }
 });
 
 gecoApp.config(['$routeProvider',

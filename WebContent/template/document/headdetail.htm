@@ -71,8 +71,38 @@
 	<div class="details">
 		<div class="generaltable">
 			<div class="head_main_detail">	
-				<div class="info" >
-				<div class="PRODUCT_fields_details code">
+				<div class="info " >
+					<div class="conteiner-fluid">
+						<div class="row">
+							<div class="col-md-3">
+								<div class="label ">Tipologia </div>
+							</div>
+							<div class="col-md-3">
+								<div class="label ">Data *</div>
+							</div>
+							<div class="col-md-2">
+								<div class="label ">Numero </div>
+							</div>
+							<div class="col-md-2">
+								<div class="label ">Protocollo </div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-3">
+								<select id="selgroup" class="inputfield" ng-model="currentDocument"    ng-options="document as getLabel(document) for document in documents" ng-change="head.document = currentDocument;calculateNumber();setModified()" ng-data-provider="documents" create-chosen on-finish-chosen-update-fullsize  ></select>
+							</div>
+							<div class="col-md-3">
+								<input class="inputfield datepicker" type="text" id="startDate" ng-model="head.date" value="{{head.date}}" ng-change="calculateNumber();setModified()" create-datepicker ng-blur="formatYear()" />
+							</div>
+							<div class="col-md-2">
+								<input class="inputfield" id="ifname" ng-model="head.number" value="{{head.number}}" ng-change="setModified()"  />
+							</div>
+							<div class="col-md-2">
+								<input class="inputfield"  ng-model="head.serialnumber" value="{{head.serialnumber}}"   />
+							</div>
+						</div>
+					</div>
+				<!--div class="PRODUCT_fields_details code">
 							<div class="label ">Tipologia </div>
 							<div class="field">
 								<select id="selgroup" class="inputfield" ng-model="currentDocument"    ng-options="document as getLabel(document) for document in documents" ng-change="head.document = currentDocument;calculateNumber();setModified()" ng-data-provider="documents" create-chosen on-finish-chosen-update  ></select>
@@ -91,9 +121,6 @@
 						
 					</div>
 					
-						
-				</div>
-				<div class="info added_info" ng-show="selectedSection == listsections[0]">
 					<div class="category_group">
 					<div class="PRODUCT_fields_details code">
 						<div class="label ">Protocollo *</div>
@@ -102,7 +129,10 @@
 					</div>
 					
 						
+				</div-->	
 				</div>
+				<div class="info added_info" ng-show="selectedSection == listsections[0]">
+					
 					<div class="category_group">
 							<div class="PRODUCT_fields_details code"  ng-show="currentDocument.customer == true" >
 								<div class="label ">Cliente </div>
