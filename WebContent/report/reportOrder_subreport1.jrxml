@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportOrder_subreport1" pageWidth="802" pageHeight="555" orientation="Landscape" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="5ad31874-d701-4a31-82eb-0c19c053cff4">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="quantita" class="java.lang.String"/>
+	<field name="cliente" class="java.lang.String"/>
+	<field name="um" class="java.lang.String"/>
+	<field name="totale" class="java.lang.String"/>
+	<variable name="variable1" class="java.lang.Double" resetType="Column" incrementType="Column" calculation="Sum"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<rectangle>
+				<reportElement x="367" y="0" width="127" height="30" uuid="6281b960-0ec3-470c-885c-d98d174fccb2"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="295" y="0" width="72" height="30" uuid="6e57d3af-9c08-489f-82cf-46ccb5ec10a6"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="114" y="0" width="180" height="30" uuid="989db277-f722-40a9-ba50-d7e84ef7804a"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="127" y="0" width="158" height="20" uuid="33da8be6-1780-4018-b31d-f165756dab88"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="372" y="2" width="116" height="20" uuid="7d460c3a-a41d-488a-9328-61766155ef09"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Quantità]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="304" y="1" width="53" height="20" uuid="bc58f72e-c58a-45e8-a4a2-1d089441a8bf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[UM]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="31" splitType="Stretch">
+			<rectangle>
+				<reportElement x="367" y="0" width="127" height="30" uuid="a9067254-0e16-410c-859e-8541d87cef56"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="295" y="0" width="72" height="30" uuid="6c0dfee4-7d6c-49cf-a4ca-558690e3620b"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="114" y="0" width="180" height="30" uuid="ec514fa4-fb27-4f0a-9660-b5a7ac454799"/>
+			</rectangle>
+			<textField>
+				<reportElement x="372" y="3" width="116" height="20" uuid="c4ff7f05-15bc-4cc8-a5df-41b117ce4437"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{quantita}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="127" y="3" width="158" height="20" uuid="3f5973be-5d18-4b0f-adc8-3d33446404ac"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="311" y="3" width="56" height="20" uuid="f89a4ef3-fd77-472c-a7c8-5101b4ef58ab"/>
+				<textFieldExpression><![CDATA[$F{um}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="50">
+			<textField>
+				<reportElement x="367" y="0" width="121" height="32" uuid="644dd538-95ce-49ee-9382-f5202a88bef0"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totale}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="226" y="0" width="141" height="32" uuid="a0d3b6ef-55d1-40ae-8ddb-d485a9079a17"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[TOTALE:]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+</jasperReport>
