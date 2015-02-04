@@ -246,6 +246,26 @@ gecoRegistryCustomerControllers.controller('CustomerDetailCtrl',["$scope","$http
 			$scope.$apply();
 		}
 	});
+	
+	$scope.deleteListElement = function(deleteobj){
+				$.ajax({
+						url:"rest/registry/customer/list",
+						type:"DELETE",
+						data:"customerlist="+JSON.stringify(deleteobj),
+						success:function(data){
+							alert("Elemento eliminato con successo");
+							$http.get('rest/registry/customer/'+$scope.idcustomer).success(function(data){
+								$scope.customer= data;
+								$scope.fillGroups();
+								$scope.fillCategory();
+								$scope.fillPayment(); 
+								$scope.fillTransporter();
+							});
+						}	
+					})
+			
+		
+	}
 }]);
 
 

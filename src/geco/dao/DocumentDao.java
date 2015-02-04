@@ -185,6 +185,12 @@ public class DocumentDao {
 		}
 		return saveHead(sm);
 	}
+	public GECOObject saveUpdatesHeadForce(Head sm) throws GecoException{
+		boolean found = false;
+		found = sm.calculateNumber();
+		setUpCounter(sm, found);
+		return saveHead(sm);
+	}
 	private void setUpCounter(Head sm,boolean found){
 		if (found == false){
 			Counter c = sm.getDocument().getCounter();
@@ -682,354 +688,7 @@ public class DocumentDao {
 				}
 				
 			}
-				/*
-				if (generateObj.isGroupBySupplier() == true){
-					HashMap<Integer,Set<Head>> map = DocumentHelper.groupBySupplier(headToGenerate);
-					Set<Integer> keys = map.keySet();
-					int number = 0;
-					if (generateObj.isGroupByCustomer() == false && generateObj.isGroupByDestination() == false){
-						for(Iterator<Integer> it = keys.iterator();it.hasNext();){
-							Integer index = it.next();
-							Set<Head> hd = map.get(index);
-							rows = new HashSet<Row>();
-							Head headGenerated = new Head();
-							headGenerated.setDate(generateObj.getDate());
-							headGenerated.setDocument(generateObj.getGenerateDoc());
-							for(Iterator<Head> headIt = hd.iterator();headIt.hasNext();){
-								Head headGrouped = headIt.next();
-								headGenerated.setSupplier(headGrouped.getSupplier());
-								if (headGenerated.getDocument().isCredit() == true || headGenerated.getDocument().isDebit() == true){
-									headGenerated.setPayment(headGrouped.getSupplier().getPayment());
-								}
-								for (Iterator<Row> iteratorRow = headGrouped.getRows().iterator(); iteratorRow.hasNext();){
-									Row rowToAdd = iteratorRow.next();
-									if (rowToAdd.isGenerate() == true){
-										rowToAdd.setIdRow(0);
-										rowToAdd.setHead(headGenerated);
-										rowToAdd.setPrice(rowToAdd.getProduct().getPurchaseprice());
-										Set<Row> rs= rows;
-										boolean found = false;
-										for (Iterator<Row> irs = rs.iterator();irs.hasNext();){
-										   Row rexisting = irs.next();
-										   if (rexisting.getProduct().getIdProduct() == rowToAdd.getProduct().getIdProduct()){
-											   rexisting.setQuantity(rexisting.getQuantity() + rowToAdd.getQuantity());
-											   found = true;
-											   break;
-										   }
-										}
-										if (found == false){
-											rs.add(rowToAdd);
-										}
-										//rows.add(rowToAdd);
-									}
-								}
-							}
-							headGenerated.setRows(rows);
-							headGenerated.calculateNumber(index);
-							headGenerated = (Head)((GECOSuccess)saveUpdatesHead(headGenerated,number,true)).success;
-							saveGenerateDocument(hd,headGenerated,rowsToGenerate);
-							number = number+1;
-						}*/
-					//}else {
-						/*for(Iterator<Integer> it = keys.iterator();it.hasNext();){
-							Integer index = it.next();
-							Set<Head> hd = map.get(index);
-							HashMap<Integer,Set<Head>> mapHead = null;
-							
-							if (generateObj.isGroupByCustomer() == true)
-								mapHead = DocumentHelper.groupByCustomer(hd);
-							else
-								mapHead = DocumentHelper.groupByDestination(hd);
-							
-							Set<Integer> keysHead = mapHead.keySet();
-							for(Iterator<Integer> ith = keysHead.iterator();ith.hasNext();){
-								Integer indexHead = ith.next();
-								Set<Head> hdCD = map.get(indexHead);
-								rows = new HashSet<Row>();
-								Head headGenerated = new Head();
-								headGenerated.setDate(generateObj.getDate());
-								headGenerated.setDocument(generateObj.getGenerateDoc());
-								for(Iterator<Head> headIt = hdCD.iterator();headIt.hasNext();){
-									Head headGrouped = headIt.next();
-									headGenerated.setCustomer(headGrouped.getCustomer());
-									headGenerated.setTransporter(headGrouped.getTransporter());
-									if (generateObj.isGroupByDestination() == true)
-										headGenerated.setDestination(headGrouped.getDestination());
-									headGenerated.setSupplier(headGrouped.getSupplier());
-									if (headGenerated.getDocument().isCredit() == true || headGenerated.getDocument().isDebit() == true){
-										headGenerated.setPayment(headGrouped.getCustomer().getPayment());
-									}
-									for (Iterator<Row> iteratorRow = headGrouped.getRows().iterator(); iteratorRow.hasNext();){
-										Row rowToAdd = iteratorRow.next();
-										if (rowToAdd.isGenerate() == true){
-											rowToAdd.setIdRow(0);
-											rowToAdd.setHead(headGenerated);
-											//rowToAdd.setPrice(price)
-											Set<Row> rs= rows;
-											boolean found = false;
-											for (Iterator<Row> irs = rs.iterator();irs.hasNext();){
-											   Row rexisting = irs.next();
-											   if (rexisting.getProduct().getIdProduct() == rowToAdd.getProduct().getIdProduct()){
-												   rexisting.setQuantity(rexisting.getQuantity() + rowToAdd.getQuantity());
-												   found = true;
-												   break;
-											   }
-											}
-											if (found == false){
-												rs.add(rowToAdd);
-											}
-											//rows.add(rowToAdd);
-										}
-									}
-								}
-								headGenerated.setRows(rows);
-								headGenerated.calculateNumber(index);
-								headGenerated = (Head)((GECOSuccess)saveUpdatesHead(headGenerated,number,true)).success;
-								saveGenerateDocument(hd,headGenerated,rowsToGenerate);
-								number = number+1;
-							}
-						}
-					}
-					
-				}else{
-					if (generateObj.isGroupByCustomer() == false  && generateObj.isGroupByDestination() == false   ){
-						Head singleHead = new Head();
-						singleHead.setDate(generateObj.getDate());
-						singleHead.setDocument(generateObj.getGenerateDoc());
-						singleHead.setRows(new HashSet<Row>());
-						for (Iterator<Head> ith = headToGenerate.iterator();ith.hasNext();){
-							Head h = ith.next();
-							if (h.getRows() != null){
-								for (Iterator<Row> ir = h.getRows().iterator();ir.hasNext();){
-									Row r = ir.next();
-									Row rowToCopy = new Row();
-									rowToCopy.copy(r);
-									rowToCopy.setIdRow(0);
-									//CONTROL PRODUCTS ALREADY IN THE SYSTEM
-									Set<Row> rs= singleHead.getRows();
-									boolean found = false;
-									for (Iterator<Row> irs = rs.iterator();irs.hasNext();){
-									   Row rexisting = irs.next();
-									   if (rexisting.getProduct().getIdProduct() == rowToCopy.getProduct().getIdProduct()){
-										   rexisting.setQuantity(rexisting.getQuantity() + rowToCopy.getQuantity());
-										   found = true;
-										   break;
-									   }
-									}
-									if (found == false){
-										rs.add(rowToCopy);
-									}
-									//singleHead.getRows().add(rowToCopy);
-								}
-							}
-						}
-						singleHead.calculateNumber();
-						saveUpdatesHead(singleHead,0,true);
-					}else{
-						HashMap<Integer,Set<Head>> map = null;
-						if (generateObj.isGroupByCustomer() == true)
-							map = DocumentHelper.groupByCustomer(headToGenerate);
-						else
-							map = DocumentHelper.groupByDestination(headToGenerate);
-						Set<Integer> keys = map.keySet();
-						int number = 0;
-						for(Iterator<Integer> it = keys.iterator();it.hasNext();){
-							Integer index = it.next();
-							Set<Head> hd = map.get(index);
-							rows = new HashSet<Row>();
-							Head headGenerated = new Head();
-							headGenerated.setDate(generateObj.getDate());
-							headGenerated.setDocument(generateObj.getGenerateDoc());
-							for(Iterator<Head> headIt = hd.iterator();headIt.hasNext();){
-								Head headGrouped = headIt.next();
-								headGenerated.setCustomer(headGrouped.getCustomer());
-								if (generateObj.isGroupByDestination() == true)
-									headGenerated.setDestination(headGrouped.getDestination());
-								headGenerated.setTransporter(headGrouped.getTransporter());
-								if (headGenerated.getDocument().isCredit() == true || headGenerated.getDocument().isDebit() == true){
-									headGenerated.setPayment(headGrouped.getCustomer().getPayment());
-								}
-								for (Iterator<Row> iteratorRow = headGrouped.getRows().iterator(); iteratorRow.hasNext();){
-									Row rowToAdd = iteratorRow.next();
-									if (rowToAdd.isGenerate() == true){
-										rowToAdd.setIdRow(0);
-										rowToAdd.setHead(headGenerated);
-										//rowToAdd.setPrice(price)
-										Set<Row> rs= rows;
-										boolean found = false;
-										for (Iterator<Row> irs = rs.iterator();irs.hasNext();){
-										   Row rexisting = irs.next();
-										   if (rexisting.getProduct().getIdProduct() == rowToAdd.getProduct().getIdProduct()){
-											   rexisting.setQuantity(rexisting.getQuantity() + rowToAdd.getQuantity());
-											   found = true;
-											   break;
-										   }
-										}
-										if (found == false){
-											rs.add(rowToAdd);
-										}
-										//rows.add(rowToAdd);
-									}
-								}
-							}
-							headGenerated.setRows(rows);
-							headGenerated.calculateNumber(index);
-							headGenerated = (Head)((GECOSuccess)saveUpdatesHead(headGenerated,number,true)).success;
-							
-							saveGenerateDocument(hd,headGenerated,rowsToGenerate);
-							number = number+1;
-						}
-					}
-				}
-			}*/
 				
-				
-				/*
-				if (generateObj.isGroupByCustomer() == false  && generateObj.isGroupBySupplier() == false && generateObj.isGroupByDestination() == false   ){
-					Head singleHead = new Head();
-					singleHead.setDate(generateObj.getDate());
-					singleHead.setDocument(generateObj.getGenerateDoc());
-					singleHead.setRows(new HashSet<Row>());
-					for (Iterator<Head> ith = headToGenerate.iterator();ith.hasNext();){
-						Head h = ith.next();
-						if (h.getRows() != null){
-							for (Iterator<Row> ir = h.getRows().iterator();ir.hasNext();){
-								Row r = ir.next();
-								Row rowToCopy = new Row();
-								rowToCopy.copy(r);
-								rowToCopy.setIdRow(0);
-								//CONTROL PRODUCTS ALREADY IN THE SYSTEM
-								Set<Row> rs= singleHead.getRows();
-								boolean found = false;
-								for (Iterator<Row> irs = rs.iterator();irs.hasNext();){
-								   Row rexisting = irs.next();
-								   if (rexisting.getProduct().getIdProduct() == rowToCopy.getProduct().getIdProduct()){
-									   rexisting.setQuantity(rexisting.getQuantity() + rowToCopy.getQuantity());
-									   found = true;
-									   break;
-								   }
-								}
-								if (found == false){
-									rs.add(rowToCopy);
-								}
-								//singleHead.getRows().add(rowToCopy);
-							}
-						}
-					}
-					singleHead.calculateNumber();
-					saveUpdatesHead(singleHead,0,true);
-				}else if (generateObj.isGroupByCustomer() == true ){
-					HashMap<Integer,Set<Head>> map = DocumentHelper.groupByCustomer(headToGenerate);
-					Set<Integer> keys = map.keySet();
-					int number = 0;
-					for(Iterator<Integer> it = keys.iterator();it.hasNext();){
-						Integer index = it.next();
-						Set<Head> hd = map.get(index);
-						rows = new HashSet<Row>();
-						Head headGenerated = new Head();
-						headGenerated.setDate(generateObj.getDate());
-						headGenerated.setDocument(generateObj.getGenerateDoc());
-						for(Iterator<Head> headIt = hd.iterator();headIt.hasNext();){
-							Head headGrouped = headIt.next();
-							headGenerated.setCustomer(headGrouped.getCustomer());
-							headGenerated.setTransporter(headGrouped.getTransporter());
-							if (headGenerated.getDocument().isCredit() == true || headGenerated.getDocument().isDebit() == true){
-								headGenerated.setPayment(headGrouped.getCustomer().getPayment());
-							}
-							for (Iterator<Row> iteratorRow = headGrouped.getRows().iterator(); iteratorRow.hasNext();){
-								Row rowToAdd = iteratorRow.next();
-								if (rowToAdd.isGenerate() == true){
-									rowToAdd.setIdRow(0);
-									rowToAdd.setHead(headGenerated);
-									//rowToAdd.setPrice(price)
-									Set<Row> rs= rows;
-									boolean found = false;
-									for (Iterator<Row> irs = rs.iterator();irs.hasNext();){
-									   Row rexisting = irs.next();
-									   if (rexisting.getProduct().getIdProduct() == rowToAdd.getProduct().getIdProduct()){
-										   rexisting.setQuantity(rexisting.getQuantity() + rowToAdd.getQuantity());
-										   found = true;
-										   break;
-									   }
-									}
-									if (found == false){
-										rs.add(rowToAdd);
-									}
-									//rows.add(rowToAdd);
-								}
-							}
-						}
-						headGenerated.setRows(rows);
-						headGenerated.calculateNumber(index);
-						headGenerated = (Head)((GECOSuccess)saveUpdatesHead(headGenerated,number,true)).success;
-						
-						saveGenerateDocument(hd,headGenerated,rowsToGenerate);
-						number = number+1;
-					}
-				}else if (generateObj.isGroupBySupplier() == true && generateObj.isGroupByDestination() == false ){
-					
-					}
-				}else if (generateObj.isGroupByDestination() == true  ){
-						HashMap<Integer,Set<Head>> map = DocumentHelper.groupByDestination(headToGenerate);
-						Set<Integer> keys = map.keySet();
-						int number = 0;
-						for(Iterator<Integer> it = keys.iterator();it.hasNext();){
-							Integer index = it.next();
-							Set<Head> hd = map.get(index);
-							rows = new HashSet<Row>();
-							Head headGenerated = new Head();
-							headGenerated.setDate(generateObj.getDate());
-							headGenerated.setDocument(generateObj.getGenerateDoc());
-							for(Iterator<Head> headIt = hd.iterator();headIt.hasNext();){
-								Head headGrouped = headIt.next();
-								headGenerated.setCustomer(headGrouped.getCustomer());
-								headGenerated.setDestination(headGrouped.getDestination());
-								headGenerated.setTransporter(headGrouped.getTransporter());
-								if (headGenerated.getDocument().isCredit() == true || headGenerated.getDocument().isDebit() == true){
-									headGenerated.setPayment(headGrouped.getCustomer().getPayment());
-								}
-								for (Iterator<Row> iteratorRow = headGrouped.getRows().iterator(); iteratorRow.hasNext();){
-									Row rowToAdd = iteratorRow.next();
-									if (rowToAdd.isGenerate() == true){
-										rowToAdd.setIdRow(0);
-										rowToAdd.setHead(headGenerated);
-										//rowToAdd.setPrice(price)
-										Set<Row> rs= rows;
-										boolean found = false;
-										for (Iterator<Row> irs = rs.iterator();irs.hasNext();){
-										   Row rexisting = irs.next();
-										   if (rexisting.getProduct().getIdProduct() == rowToAdd.getProduct().getIdProduct()){
-											   rexisting.setQuantity(rexisting.getQuantity() + rowToAdd.getQuantity());
-											   found = true;
-											   break;
-										   }
-										}
-										if (found == false){
-											rs.add(rowToAdd);
-										}
-										//rows.add(rowToAdd);
-									}
-								}
-							}
-							headGenerated.setRows(rows);
-							headGenerated.calculateNumber(index);
-							headGenerated = (Head)((GECOSuccess)saveUpdatesHead(headGenerated,number,true)).success;
-							
-							saveGenerateDocument(hd,headGenerated,rowsToGenerate);
-							number = number+1;
-						}
-					
-				}
-			}
-		}catch(HibernateException e){
-			System.err.println("ERROR IN LIST!!!!!!");
-			e.printStackTrace();
-			throw new ExceptionInInitializerError(e);
-		}
-		catch(GecoException e){
-			System.err.println("ERROR IN LIST!!!!!!");
-			e.printStackTrace();
-		}*/
 		return new GECOSuccess(list);
 	}
 	public GECOObject copyHeadRows(GenerateDocsObject generateObj){
@@ -1043,25 +702,28 @@ public class DocumentDao {
 				headGenerated.setRows(new HashSet<Row>());
 				if (generateObj.getCustomer() != null){
 					headGenerated.setCustomer(generateObj.getCustomer());
-				}else if (generateObj.getSupplier() != null){
+				}
+				if (generateObj.getSupplier() != null){
 					headGenerated.setSupplier(generateObj.getSupplier());
 				}
 				for (Iterator<Head> iterator = generateObj.getHeads().iterator(); iterator.hasNext();){
 					Head head = iterator.next();
-					if (head.isGenerate() == true ){
+					//if (head.isGenerate() == true ){
 						for (Iterator<Row> it = head.getRows().iterator();it.hasNext();){
 							Row row = it.next();
-							Row rowCopied  = new Row();
-							rowCopied.copy(row);
-							rowCopied.setProduct(new RegistryDao().getSingleCodeProduct(rowCopied.getProductcode(), generateObj.getList().getIdList(),head));
-							rowCopied.setPrice(rowCopied.getProduct().getListprice());
-							new RowTotalCalculator().rowCalculation(rowCopied);
-							headGenerated.getRows().add(rowCopied);
+							if (row.isGenerate()){
+								Row rowCopied  = new Row();
+								rowCopied.copy(row);
+								rowCopied.setProduct(new RegistryDao().getSingleCodeProductCopyRows(rowCopied.getProductcode(), generateObj.getList(),head));
+								rowCopied.setPrice(rowCopied.getProduct().getListprice());
+								new RowTotalCalculator().rowCalculation(rowCopied);
+								headGenerated.getRows().add(rowCopied);
+							}
 						}
-					}
+					//}
 				}
 				int number = 0;
-				headGenerated.calculateNumber();
+				headGenerated.calculateNumberGenerate();
 				GECOObject obj = saveUpdatesHead(headGenerated);
 				
 				return obj;

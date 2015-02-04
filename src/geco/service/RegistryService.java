@@ -8,6 +8,7 @@ import geco.vo.Customer;
 import geco.vo.Destination;
 import geco.vo.Head;
 import geco.vo.List;
+import geco.vo.ListCustomer;
 import geco.vo.NewList;
 import geco.vo.Product;
 import geco.vo.Supplier;
@@ -404,7 +405,21 @@ public class RegistryService {
 		  }
 	  }
 	  
-	  
+	  @DELETE
+	  @Path("customer/list")
+	  @Produces(MediaType.TEXT_PLAIN)
+	  @Consumes(MediaType.APPLICATION_FORM_URLENCODED) 
+	  public String deleteListCustomer(@FormParam("customerlist") String customerlist){
+		  Gson gson = new Gson();
+		  try{
+			  ListCustomer sm = gson.fromJson(customerlist,ListCustomer.class);
+			  RegistryDao dao = new RegistryDao();
+			  dao.deleteListCustomer(sm);
+			  return gson.toJson(true);
+		  }catch(Exception e){
+			  return gson.toJson("");
+		  }
+	  }
 	  
 	  
 	  /*****

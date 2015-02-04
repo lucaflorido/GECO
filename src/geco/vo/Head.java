@@ -362,6 +362,31 @@ public class Head implements Ivo {
 	    return found;
 		
 	}
+	public boolean calculateNumberGenerate(){
+		boolean found = false;
+	    if (date.length() > 0){
+	    	String[] dateArray = this.date.split("/");
+	    	
+	    	if (dateArray.length > 2){
+		    	int year = Integer.parseInt(dateArray[2]);
+				for (Iterator<CounterYear> iterator = this.document.getCounter().getYearsvalue().iterator();iterator.hasNext();){
+					CounterYear cy = iterator.next();
+					if (cy.getYear() == year){
+						found = true;
+						if (this.number >= cy.getValue()){
+							cy.setValue(this.number + 1);
+						}else if(this.number < cy.getValue() && this.number == 0 && this.idHead == 0){
+							this.number = cy.getValue();
+						}
+						
+					}
+				}
+				
+	    	}
+	    }
+	    return found;
+		
+	}
 	public boolean calculateNumber(int index){
 		boolean found = false;
 	    if (date.length() > 0){

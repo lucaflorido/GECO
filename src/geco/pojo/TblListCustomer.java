@@ -18,10 +18,10 @@ public class TblListCustomer  implements Itbl{
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="idListCustomer")
 	private int idListCustomer;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "idList")
 	private TblList list;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "idCustomer")
 	private TblCustomer customer;
 	public int getIdListCustomer() {

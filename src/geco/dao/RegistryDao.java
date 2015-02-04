@@ -590,6 +590,44 @@ public class RegistryDao {
 		product.setWeigth(pbc.getWeight());
 		return product;
 	}
+	public Product getSingleCodeProductCopyRows(String code,geco.vo.List list,Head head){
+		ProductBarCode pbc = getBarCodeProduct(code);
+		Session session = HibernateUtils.getSessionFactory().openSession();
+		Product product = new Product();
+		//SEARCH BY CODE
+		try{			
+			Criteria cr = session.createCriteria(TblProduct.class,"product");
+			cr.createAlias("product.ums", "um");
+			cr.add(Restrictions.eq("um.code", pbc.getCode()));
+			cr.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
+			List products = cr.list();
+			if (products.size() == 1){
+				product.convertFromTable((TblProduct)products.get(0));
+				setPriceHistory(head, product, session);
+			}
+		}catch(HibernateException e){
+			System.err.println("ERROR IN LIST!!!!!!");
+			e.printStackTrace();
+			throw new ExceptionInInitializerError(e);
+			
+		}finally{
+			session.close();
+		}
+		if (product.getIdProduct() > 0){
+			if (list != null){
+				product.setListprice(getProductPriceList(product.getIdProduct(), list.getIdList()));
+			}
+			
+			product = calculateUMNoSetPrice(product, code);
+		}
+		try{
+			product.setStorage(new StoreDao().getStorageProduct(product));
+		}catch(Exception e){
+			
+		}
+		product.setWeigth(pbc.getWeight());
+		return product;
+	}
 	/**
 	 * GET A SINGLE BARCODE
 	 * **/
@@ -812,6 +850,21 @@ public class RegistryDao {
 		if (prod.getListprice() == 0){
 			prod.setListprice(HibernateUtils.roundfloat(prod.getSellprice()));
 		}
+		if (prod.getConversionrate() > 0){
+			prod.setListprice(HibernateUtils.roundfloat(prod.getListprice() * prod.getConversionrate()));
+		}
+		return prod;
+	}
+	private Product calculateUMNoSetPrice(Product prod,String code){
+		for (Iterator<UnitMeasureProduct> iterator = prod.getUms().iterator();iterator.hasNext();){
+			UnitMeasureProduct ump = iterator.next();
+			if(ump.getCode().equals(code)){
+				prod.setUmselected(ump.getUm());
+				prod.setConversionrate(ump.getConversion());
+				break;
+			}
+		}
+		
 		if (prod.getConversionrate() > 0){
 			prod.setListprice(HibernateUtils.roundfloat(prod.getListprice() * prod.getConversionrate()));
 		}
@@ -1158,6 +1211,27 @@ public class RegistryDao {
 	 * **/
 	public Boolean deleteCustomer(Customer sm){
 		TblCustomer tblsm = new TblCustomer();
+		Session session = HibernateUtils.getSessionFactory().openSession();
+		Transaction tx = null;
+		try{
+			tblsm.convertToTable(sm);
+			tx = session.beginTransaction();
+			session.delete(tblsm);
+			tx.commit();
+		}catch(HibernateException e){
+			System.err.println("ERROR IN LIST!!!!!!");
+			if (tx!= null) tx.rollback();
+			e.printStackTrace();
+			session.close();
+			throw new ExceptionInInitializerError(e);
+		}finally{
+			session.close();
+		}
+		return true;
+		
+	}
+	public Boolean deleteListCustomer(ListCustomer sm){
+		TblListCustomer tblsm = new TblListCustomer();
 		Session session = HibernateUtils.getSessionFactory().openSession();
 		Transaction tx = null;
 		try{
