@@ -6,6 +6,15 @@ gecoDocumentListControllers.controller('HeadListCtrl',["$scope","$http","$routeP
 	$scope.headamount = 0;
 	$scope.headtaxamount = 0;
 	$scope.headtotal = 0;
+	$scope.getters={
+        date: function (value) {
+            //this will sort by the length of the first name string
+			var day = value.date.substring(0,2)
+			var month = value.date.substring(3,5)
+			var year = value.date.substring(6)
+            return new Date(year,month,day);
+        }
+    }
 	//$scope.headfilter={};
 	$scope.heads = [];
 	if ($scope.headfilter == null){
@@ -81,7 +90,7 @@ gecoDocumentListControllers.controller('HeadListCtrl',["$scope","$http","$routeP
 				if ($scope.documents[i].idDocument == $scope.headfilter.doc.idDocument){
 					$scope.headfilter.doc = $scope.documents[i];
 					$scope.currentDocument = $scope.documents[i];					
-				}
+				}
 			}
 		}
 	});/*

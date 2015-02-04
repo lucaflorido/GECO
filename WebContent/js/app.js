@@ -18,7 +18,8 @@ var gecoApp = angular.module("gecoApp",["ngRoute",
 "geco.generate.document",
 "geco.copy.rows",
 "geco.create.orders",
-"ui.bootstrap.pagination"
+"ui.bootstrap.pagination",
+"smart-table"
 
 
 ])

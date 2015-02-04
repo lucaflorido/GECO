@@ -131,54 +131,49 @@
 				</div>
 				<div class="label filter">Righe per pagina:</div>
 		</div>
-		
-		<table st-table="headsToDisplay" class="table table-striped" st-safe-src="heads">
+		<table class="GECO_table eight_two clearfix">
 			<thead>
 				<tr>
-					<th ></th>
-					<th ><input type="checkbox" ng-click="addRemoveHeads()" class="checkbox_all" /></th>
-					<th></th>
-					<th ></th>
-					<th st-sort="number" st-sort-default="reverse" st-skip-natural="true" >N.</th>
-					<th st-sort="getters.date" st-skip-natural="true" >Data</th>
-					<th st-sort="document.code" st-skip-natural="true">Tipologia</th>
-					<th st-sort="supplier.suppliername" ng-show="headfilter.isSupplier == true" st-skip-natural="true" >Fornitore</td>
-					<th  st-sort="customer.customername" st-skip-natural="true">Cliente</th>
-					<th st-sort="destination.destinationname" ng-show="headfilter.isCustomer == true" st-skip-natural="true">Destinazione</th>
-					<th st-sort="amount" st-skip-natural="true">Imponibile</th>
-					<th st-sort="taxamount" st-skip-natural="true">Imposta</th>
-					<th st-sort="total" st-skip-natural="true">Totali</th>
-					<th ></th>
-					
-				</tr>
-				<tr>
-					<th colspan="13"><input st-search="" class="form-control" placeholder="Ricerca Globale ..." type="text"/></th>
+					<td class="header_table row_table first half ">&nbsp;</td>
+					<td class="header_table row_table  half"><input type="checkbox" ng-click="addRemoveHeads()" class="checkbox_all" /></td>
+					<td class="header_table row_table quarter delete">&nbsp;</td>
+					<td class="header_table row_table quarter delete">&nbsp;</td>
+					<td class="header_table row_table  half"><div class="sorter" ng-click="sortFunction('number')"><div class="sorter_label">N.</div><div class="sortericon number"></div></div></td>
+					<td class="header_table row_table threequarter"><div class="sorter " ng-click="sortDateFunction('date',dateSortFunction)"><div class="sorter_label">Data</div><div class="sortericon up date"></div></div></td>
+					<td class="header_table row_table threequarter"><div class="sorter" ng-click="sortFunction('document.code')"><div class="sorter_label">Tipologia</div><div class="sortericon document code"></div></div></td>
+					<td ng-show="headfilter.isSupplier == true" class="header_table row_table double"><div class="sorter" ng-click="sortFunction('supplier.suppliername')"><div class="sorter_label">Fornitore</div><div class="sortericon supplier suppliername"></div></div></td>
+					<td  class="header_table row_table double"><div class="sorter" ng-click="sortFunction('customer.customername')"><div class="sorter_label">Cliente</div><div class="sortericon customer customername"></div></div></td>
+					<td ng-show="headfilter.isCustomer == true" class="header_table row_table double"><div class="sorter" ng-click="sortFunction('destination.destinationname')"><div class="sorter_label">Destinazione</div><div class="sortericon destination destinationname"></div></div></td>
+					<td class="header_table row_table threequarter"><div class="sorter" ng-click="sortFunction('amount')"><div class="sorter_label">Imponibile</div><div class="sortericon amount"></div></div></td>
+					<td class="header_table row_table threequarter"><div class="sorter" ng-click="sortFunction('taxamount')"><div class="sorter_label">Imposta</div><div class="sortericon taxamount"></div></div></td>
+					<td class="header_table row_table threequarter"><div class="sorter" ng-click="sortFunction('total')"><div class="sorter_label">Totali</div><div class="sortericon total"></div></div></td>
+					<td class="header_table row_table half modify">&nbsp;</td>
 					
 				</tr>
 			<thead>
 			<tfoot>
 				<tr>
-					<td></td>
-					<td ></td>
-					<td ></td>
-					<td ></td>
-					<td ></td>
-					<td ></td>
-					<td ></td>
-					<td ng-show="headfilter.isSupplier == true" ></td>
-					<td  ></td>
-					<td ng-show="headfilter.isCustomer == true" ></td>
-					<td >{{headamount}}</td>
-					<td >{{headtaxamount}}</td>
-					<td >{{headtotal}}</td>
-					<td ></td>
+					<td class="row_table first half">&nbsp;</td>
+					<td class="row_table  half">&nbsp;</td>
+					<td class="row_table quarter delete">&nbsp;</td>
+					<td class="row_table  quarter">&nbsp;</td>
+					<td class="row_table  half">&nbsp;</td>
+					<td class="row_table threequarter">&nbsp;</td>
+					<td class="row_table threequarter">&nbsp;</td>
+					<td ng-show="headfilter.isSupplier == true" class="row_table double">&nbsp;</td>
+					<td  class="row_table double">&nbsp;</td>
+					<td ng-show="headfilter.isCustomer == true" class="row_table double">&nbsp;</td>
+					<td class="row_table threequarter">&nbsp;{{headamount}}</td>
+					<td class="row_table threequarter">&nbsp;{{headtaxamount}}</td>
+					<td class="row_table threequarter">&nbsp;{{headtotal}}</td>
+					<td class="row_table half">&nbsp;</td>
 				</tr>				
 			<tfoot>
 			<tbody>
-				<tr ng-repeat="head in headsToDisplay " st-select-row="head" >
-				<td  ng-class="{'disabled': head.disable == true || head.disable == 'true'}">{{$index+1}}</td>
-					<td  ng-class="{'disabled': head.disable == true || head.disable == 'true'}"><input type="checkbox" ng-click="addRemoveHeadId(head.idHead)" class="checkbox_single" /></td>
-					<td  ng-class="{'disabled': head.disable == true || head.disable == 'true'}">
+				<tr ng-repeat="head in heads | orderBy:orderArray " >
+				<td class="row_table first half" ng-class="{'disabled': head.disable == true || head.disable == 'true'}">{{$index+1}}</td>
+					<td class="row_table  half" ng-class="{'disabled': head.disable == true || head.disable == 'true'}"><input type="checkbox" ng-click="addRemoveHeadId(head.idHead)" class="checkbox_single" /></td>
+					<td class="row_table quarter" ng-class="{'disabled': head.disable == true || head.disable == 'true'}">
 						<a ng-show="headfilter.isOrder == true"   href="#/head/{{head.idHead}}/1">
 							<div class=" modify"  >
 								<div  class="favoriteicon"></div>
@@ -195,17 +190,17 @@
 							</div>
 						</a>
 					</td>
-					<td ng-class="{'disabled': head.disable == true || head.disable == 'true'}"><a href="#/head/{{head.idHead}}" ><div class=" modify"><div class="modifyicon"></div></div></a></td>
-					<td ng-class="{'disabled': head.disable == true || head.disable == 'true'}" >{{head.number}}</td>
-					<td ng-class="{'disabled': head.disable == true || head.disable == 'true'}">{{ head.date }} </td>
-					<td ng-class="{'disabled': head.disable == true || head.disable == 'true'}">{{head.document.code}}</td>
-					<td ng-show="headfilter.isSupplier == true"  ng-class="{'disabled': head.disable == true || head.disable == 'true'}">{{head.supplier.suppliername}}</td>
-					<td   ng-class="{'disabled': head.disable == true || head.disable == 'true'}">{{head.customer.customername}}</td>
-					<td ng-show="headfilter.isCustomer == true"  ng-class="{'disabled': head.disable == true || head.disable == 'true'}">{{head.destination.destinationname}}</td>
-					<td  ng-class="{'disabled': head.disable == true || head.disable == 'true'}">{{head.amount}}</td>
-					<td  ng-class="{'disabled': head.disable == true || head.disable == 'true'}">{{head.taxamount}}</td>
-					<td  ng-class="{'disabled': head.disable == true || head.disable == 'true'}">{{head.total}}</td>
-					<td ng-class="{'disabled': head.disable == true || head.disable == 'true'}"><div class="deleteicon confirm" id="del{{head.idHead}}"  ng-click="confirmDeleteHead(head)"></div></td>
+					<td class="row_table quarter" ng-class="{'disabled': head.disable == true || head.disable == 'true'}"><a href="#/head/{{head.idHead}}" ><div class=" modify"><div class="modifyicon"></div></div></a></td>
+					<td class="row_table  half" ng-class="{'disabled': head.disable == true || head.disable == 'true'}" >&nbsp;{{head.number}}</td>
+					<td class="row_table threequarter" ng-class="{'disabled': head.disable == true || head.disable == 'true'}">&nbsp;{{ head.date }} </td>
+					<td class="row_table threequarter" ng-class="{'disabled': head.disable == true || head.disable == 'true'}">&nbsp;{{head.document.code}}</td>
+					<td ng-show="headfilter.isSupplier == true" class="row_table double" ng-class="{'disabled': head.disable == true || head.disable == 'true'}">&nbsp;{{head.supplier.suppliername}}</td>
+					<td  class="row_table double" ng-class="{'disabled': head.disable == true || head.disable == 'true'}">&nbsp;{{head.customer.customername}}</td>
+					<td ng-show="headfilter.isCustomer == true" class="row_table double" ng-class="{'disabled': head.disable == true || head.disable == 'true'}">&nbsp;{{head.destination.destinationname}}</td>
+					<td class="row_table threequarter" ng-class="{'disabled': head.disable == true || head.disable == 'true'}">&nbsp;{{head.amount}}</td>
+					<td class="row_table threequarter" ng-class="{'disabled': head.disable == true || head.disable == 'true'}">&nbsp;{{head.taxamount}}</td>
+					<td class="row_table threequarter" ng-class="{'disabled': head.disable == true || head.disable == 'true'}">&nbsp;{{head.total}}</td>
+					<td class="row_table half" ng-class="{'disabled': head.disable == true || head.disable == 'true'}"><div class="deleteicon confirm" id="del{{head.idHead}}"  ng-click="confirmDeleteHead(head)"></div></td>
 					
 				</tr>
 			<tbody>
