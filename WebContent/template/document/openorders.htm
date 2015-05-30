@@ -8,7 +8,7 @@
 			<div class="head_main_detail">	
 				<div class="info added_info" >
 					<div class="fields code">
-						<div class="label ">Data </div>
+						<div class="GECO_label ">Data </div>
 						<div class="field ">
 						<input class="inputfield datepicker" type="text"  ng-model="generateobj.date" value="{{generateobj.date}}" create-datepicker   />
 						</div>
@@ -16,13 +16,13 @@
 					</div>
 					
 						<div class="fields code">
-							<div class="label ">Documento Da Generare </div>
+							<div class="GECO_label ">Documento Da Generare </div>
 							<div class="field">
 								<select  class="inputfield" ng-model="currentDocumentGenerate"    ng-options="document as document.description for document in documentsTo"  ng-data-provider="documentsTo" create-chosen on-finish-chosen-update ng-change="generateobj.document = currentDocumentGenerate" ><option value=""></option></select>
 							</div>
 						</div>
 						<div class="fields code">
-							<div class="label ">Gruppo Clienti</div>
+							<div class="GECO_label ">Gruppo Clienti</div>
 							<div class="field">
 								<select  class="inputfield" ng-model="currentCustomerGroup"    ng-options="group as group.code for group in groups"  ng-data-provider="groups" create-chosen on-finish-chosen-update ng-change="generateobj.group = currentCustomerGroup" ></select>
 							</div>
@@ -30,13 +30,13 @@
 					
 					<div class="category_group correction">
 						<div class="fields code">
-							<div class="label ">Data Riferimento</div>
+							<div class="GECO_label ">Data Riferimento</div>
 							<div class="field ">
 							<input class="inputfield datepicker" type="text"  ng-model="generateobj.historyDate" value="{{generateobj.historyDate}}" create-datepicker   />
 							</div>
 						</div>
 						<div class="fields code">
-								<div class="label ">&nbsp; </div>
+								<div class="GECO_label ">&nbsp; </div>
 								<div class="field">
 									&nbsp;
 								</div>

@@ -59,6 +59,17 @@ gecoStoreControllers.controller('StoreCtrl',["$scope","$http",'LoginFactory',fun
 				}	
 		})
 	}
+	$scope.printElements = function(){
+		$.ajax({
+						url:"rest/print/storage/",
+						type:"POST",
+						data:"filter="+JSON.stringify($scope.filter),
+						success:function(data){
+							//alert("Utente eliminato con successo");
+							window.open(JSON.parse(data), '_blank');
+						}	
+					})
+	}
 }]);
 gecoStoreControllers.controller('StoreNeededCtrl',["$scope","$http","$location","$rootScope",'LoginFactory',function($scope,$http,$location,$rootScope,LoginFactory){
     LoginFactory.checklogin();

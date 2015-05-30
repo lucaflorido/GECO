@@ -34,45 +34,45 @@
 			<div class="customer_main_detail">	
 				<div class="info customer_detail_height">
 					<div class="fields code">
-						<div class="label ">Codice *</div>
+						<div class="GECO_label ">Codice *</div>
 						<div class="field "><input maxlength="100" class="inputfield"  id="ifname" ng-model="customer.customercode" value="{{customer.customercode}}"  maxlength="10" capitalize /></div>
 						<div class="error" id="val_ifname" >Campo obbligatorio</div> 
 					</div>
 					<div class="fields name">
-						<div class="label ">Ragione Sociale *</div>
+						<div class="GECO_label ">Ragione Sociale *</div>
 						<div class="field "><input class="inputfield" maxlength="150"  id="ifname" ng-model="customer.customername" value="{{customer.customername}}"  maxlength="150" capitalize /></div>
 						<div class="error" id="val_ifname" >Campo obbligatorio</div> 
 					</div>
 					<div class="fields code">
-						<div class="label ">Codice Fiscale *</div>
+						<div class="GECO_label ">Codice Fiscale *</div>
 						<div class="field "><input class="inputfield" maxlength="16" id="ifname" ng-model="customer.taxcode"  maxlength="16" value="{{customer.taxcode}}" capitalize /></div>
 						<div class="error" id="val_ifname" >Campo obbligatorio</div> 
 					</div>
 					<div class="fields code">
-						<div class="label ">Partita Iva *</div>
+						<div class="GECO_label ">Partita Iva *</div>
 						<div class="field "><input class="inputfield" maxlength="11" id="ifname" ng-model="customer.serialnumber"  maxlength="11" value="{{customer.serialnumber}}" capitalize /></div>
 						<div class="error" id="val_ifname" >Campo obbligatorio</div> 
 					</div>
 										<div class="fields code">
-						<div class="label ">Attivo</div>
+						<div class="GECO_label ">Attivo</div>
 						<div class="field "><input class="inputfield" type="checkbox" id="ifname" ng-model="customer.active" value="{{customer.active}}"  /></div>
 						<div class="error" id="val_ifname" >Campo obbligatorio</div> 
 					</div>
 					<div class="category_group">
 						<div class="fields code">
-							<div class="label ">Gruppo </div>
+							<div class="GECO_label ">Gruppo </div>
 							<div class="field">
 								<select id="selgroup" class="inputfield" ng-model="currentGroup" ng-data-provider="groups" create-chosen on-finish-chosen-update   ng-options="group as getLabel(group) for group in groups" ></select>
 							</div>
 						</div>
 						<div class="fields code">
-							<div class="label ">Categoria</div>
+							<div class="GECO_label ">Categoria</div>
 							<div class="field ">
 								<select id="selcategory" class="inputfield" ng-model="currentCategory"  ng-data-provider="categorys" create-chosen on-finish-chosen-update  ng-options="category as getLabel(category) for category in categorys" ng-change="changeCategory()" ></select>
 							</div>
 						</div>
 						<div class="fields code">
-							<div class="label ">Pagamento</div>
+							<div class="GECO_label ">Pagamento</div>
 							<div class="field ">
 								<select id="selpayment" class="inputfield" ng-model="currentPayment"  ng-data-provider="payments" create-chosen on-finish-chosen-update  ng-options="payment as getLabel(payment) for payment in payments" ng-change="customer.payment = currentPayment" ></select>
 							</div>
@@ -80,7 +80,7 @@
 					</div>	
 					<div class="category_group">
 						<div class="fields code">
-							<div class="label ">Vettore </div>
+							<div class="GECO_label ">Vettore </div>
 							<div class="field">
 								<select id="seltrans" class="inputfield" ng-model="currentTransporter" ng-data-provider="transporters" create-chosen on-finish-chosen-update   ng-options="transporter as getTransporterLabel(transporter) for transporter in transporters" ng-change="customer.transporter = currentTransporter"  ></select>
 							</div>
@@ -96,20 +96,20 @@
 			<div class="customer_address_detail">	
 				<div class="contact">
 					<div class="fields address">
-						<div class="label">Indirizzo</div>
+						<div class="GECO_label">Indirizzo</div>
 						<div class="field address"><input class="inputfield" maxlength="150" ng-model="customer.address.address" value="{{customer.address.address}}" maxlength="150" capitalize/></div>
 						<div class="field number"><input class="inputfield" maxlength="10" ng-model="customer.address.number" value="{{customer.address.number}}" maxlength="10" capitalize /></div>
 					</div>
 					<div class="fields seventy">
-						<div class="label mobile">Citt&#224;</div>
+						<div class="GECO_label mobile">Citt&#224;</div>
 						<div class="field mobile"><input class="inputfield" maxlength="100" ng-model="customer.address.city" value="{{customer.address.city}}"  maxlength="100" capitalize/></div>
 					</div>
 					<div class="fields tenth">
-						<div class="label email">Provincia</div>
+						<div class="GECO_label email">Provincia</div>
 						<div class="field email"><input id="ifemail" maxlength="2" class="inputfield" ng-model="customer.address.zone" value="{{customer.address.zone}}"  maxlength="2" capitalize /></div>
 					</div>
 					<div class="fields fifteen_right">
-						<div class="label email">CAP</div>
+						<div class="GECO_label email">CAP</div>
 						<div class="field email"><input id="ifemail" maxlength="6" class="inputfield" ng-model="customer.address.zipcode" value="{{customer.address.zipcode}}"  maxlength="10" capitalize/></div>
 					</div>
 				</div>
@@ -119,39 +119,39 @@
 		<div class="credentials" >
 			<div class="credential">
 				<div class="fields one_on_three_left">
-					<div class="label phone">Telefono 1</div>
+					<div class="GECO_label phone">Telefono 1</div>
 					<div class="field phone"><input class="inputfield" maxlength="20" ng-model="customer.contact.phone1" value="{{customer.contact.phone1}}"  maxlength="20" capitalize /></div>
 				</div>
 				<div class="fields one_on_three_left">
-					<div class="label phone">Telefono 2</div>
+					<div class="GECO_label phone">Telefono 2</div>
 					<div class="field phone"><input class="inputfield" maxlength="20" ng-model="customer.contact.phone2" value="{{customer.contact.phone2}}"  maxlength="20" capitalize /></div>
 				</div>
 				<div class="fields one_on_three_right">
-						<div class="label email">Fax</div>
+						<div class="GECO_label email">Fax</div>
 						<div class="field email"><input id="ifemail" maxlength="20" class="inputfield" ng-model="customer.contact.fax" value="{{customer.contact.fax}}"  maxlength="20" capitalize /></div>
 					</div>
 			</div>
 			<div class="credential">
 				<div class="fields one_on_three_left">
-						<div class="label mobile">Cellulare 1</div>
+						<div class="GECO_label mobile">Cellulare 1</div>
 						<div class="field mobile"><input class="inputfield" maxlength="20" ng-model="customer.contact.mobile1" value="{{customer.contact.mobile1}}"  maxlength="20" capitalize /></div>
 					</div>
 				<div class="fields one_on_three_left">
-						<div class="label mobile">Cellulare 2</div>
+						<div class="GECO_label mobile">Cellulare 2</div>
 						<div class="field mobile"><input class="inputfield" maxlength="20" ng-model="customer.contact.mobile2" value="{{customer.contact.mobile2}}"  maxlength="20" capitalize /></div>
 					</div>
 				<div class="fields one_on_three_right">
-					<div class="label email">Contatto</div>
+					<div class="GECO_label email">Contatto</div>
 					<div class="field email"><input id="ifemail" class="inputfield" maxlength="45" ng-model="customer.contact.reference" value="{{customer.contact.reference}}"  maxlength="45" capitalize /></div>
 				</div>
 			</div>
 			<div class="credential">
 				<div class="fields">
-						<div class="label email">Email 1</div>
+						<div class="GECO_label email">Email 1</div>
 						<div class="field email"><input id="ifemail" class="inputfield" maxlength="45" ng-model="customer.contact.email1" value="{{customer.contact.email1}}"  maxlength="45" /></div>
 					</div>
 				<div class="fields right">
-						<div class="label email">Email 2</div>
+						<div class="GECO_label email">Email 2</div>
 						<div class="field email"><input id="ifemail" class="inputfield" maxlength="45" ng-model="customer.contact.email2" value="{{customer.contact.email2}}"  maxlength="45" /></div>
 					</div>
 			</div>

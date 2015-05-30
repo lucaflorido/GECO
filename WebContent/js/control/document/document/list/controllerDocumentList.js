@@ -1,11 +1,12 @@
 var gecoDocumentListControllers = angular.module("geco.document.list",[]);
-gecoDocumentListControllers.controller('HeadListCtrl',["$scope","$http","$routeParams","$rootScope",'LoginFactory',function($scope,$http,$routeParams,$rootScope,LoginFactory){
+gecoDocumentListControllers.controller('HeadListCtrl',["$scope","$http","$routeParams","$rootScope",'LoginFactory','$location',function($scope,$http,$routeParams,$rootScope,LoginFactory,$location){
     $scope.loginuser = LoginFactory.checklogin();
 	$scope.pagesize = 10;
 	$scope.pageArray = [];
 	$scope.headamount = 0;
 	$scope.headtaxamount = 0;
 	$scope.headtotal = 0;
+	$scope.location = $location;
 	$scope.getters={
         date: function (value) {
             //this will sort by the length of the first name string

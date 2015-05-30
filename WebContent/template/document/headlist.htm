@@ -1,137 +1,91 @@
-<div class="container userlist clearfix">
-	<div class="toolbar_table">
-		<h3>Elenco Documenti</h3>
-		<div class=" buttonmenu addbutton admin_grant" >
-			<a href="#/head/0">
-				<div class="add">
-				</div>
-				<div class="addlabel">
-					Aggiungi Documento 
-				</div>
-			</a>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-2">
+			DOCUMENTI
 		</div>
-		<div class="printbutton buttonmenu" ng-click="printElements()">
-			<div class="print">
-			</div>
-			<div class="printlabel">
-				Stampa Elenco
-			</div>
+		<div class="col-md-2">
+			<button type="button" class="btn btn-primary form-control" ng-click="location.path('/head/0')" >Aggiungi Documento </button>
 		</div>
-		<div class="printbutton buttonmenu" ng-click="printMassElements()">
-			<div class="print">
-			</div>
-			<div class="printlabel">
-				Stampa Singola
-			</div>
+		<div class="col-md-2">
+			<button type="button" class="btn btn-primary form-control" ng-click="printElements()" >Stampa Elenco </button>
 		</div>
-		<div class="printbutton buttonmenu" ng-click="openFilter()">
-			<div class="search">
-			</div>
-			<div class="printlabel">
-				Filtra
-			</div>
+		<div class="col-md-2">
+			<button type="button" class="btn btn-primary form-control" ng-click="printMassElements()" >Stampa Singola </button>
 		</div>
-		<div class="printbutton buttonmenu" ng-click="createConad()">
-			<div class="search">
-			</div>
-			<div class="printlabel">
-				Tracciato CONAD
-			</div>
+		<div class="col-md-2">
+			<button type="button" class="btn btn-primary form-control" ng-click="openFilter()" >Filtra </button>
 		</div>
-		<div class="filter">
-		<input class="filter" ng-model="query">
-			<div class="label filter">Cerca:</div>
-			
-			
-		</div>
-		
-		
-		<div class="sort">
-		    <select class="sort" ng-model="orderProp">
-				<option value="username">Username</option>
-				<option value="cognome">Cognome</option>
-			</select>
-			<div class="label sort">Ordina:</div> 
-			
+		<div class="col-md-2">
+			<button type="button" class="btn btn-primary form-control"  ng-click="createConad()" >Tracciato CONAD </button>
 		</div>
 	</div>
-	<div>
-			<div class="PRODUCT_DIALOG" ng-show="showFilter == true">
-				<div class="PRODUCT_DIALOG_COLUMN">	
-					<div>
-						<div class="PRODUCT_fields">
-							<div class="PRODUCT_label">Da Data </div>
-							<div class="PRODUCT_field role">
-								<input class="PRODUCT_inputfield datepicker" type="text" id="fromDate" ng-model="headfilter.fromDate" value="{{headfilter.fromDate}}"  create-datepicker />
-							</div>
-						</div>
-						
-						<div class="PRODUCT_fields">
-							<div class="PRODUCT_label name">Cliente</div>
-							<div class="PRODUCT_field role">
-								<select id="selgroup" class="inputfield" ng-model="currentCustomer"    ng-options="customer as customer.customername for customer in customers" ng-data-provider="customers" create-chosen on-finish-chosen-update ng-change="headfilter.customer = currentCustomer">
-									<option value=""></option>
-								</select>
-							</div>
-						</div>
-						<div class="PRODUCT_fields">
-							<div class="PRODUCT_label name">Tipo documento</div>
-							<div class="PRODUCT_field role">
-								<select id="selcategory" class="inputfield" ng-model="currentDocument"    ng-options="document as document.description for document in documents" ng-change="headfilter.doc = currentDocument" ng-data-provider="documents" create-chosen on-finish-chosen-update  > <option value=""></option></select>
-							</div>
-						</div>
-						<div class="PRODUCT_fields">
-							<div class="PRODUCT_label name">Attivi </div>
-							<div class="PRODUCT_field role">
-								<input  type="checkbox"  id="checkbox" class="PRODUCT_inputfield" ng-model="headfilter.active" value="{{headfilter.active}}" ></input>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="PRODUCT_DIALOG_COLUMN">
-					<div >
-						<div class="PRODUCT_fields">
-							<div class="PRODUCT_label name">A data</div>
-							<div class="PRODUCT_field role">
-								<input class="PRODUCT_inputfield " type="text" id="toDate" ng-model="headfilter.toDate" value="{{headfilter.toDate}}"  create-datepicker />
-							</div>
-						</div>
-						<div class="PRODUCT_fields">
-							<div class="PRODUCT_label name">Fornitore </div>
-							<div class="PRODUCT_field role">
-								<select id="selsupplier" class="inputfield" ng-model="currentSupplier"    ng-options="supplier as supplier.suppliername for supplier in suppliers" ng-data-provider="suppliers" create-chosen on-finish-chosen-update ng-change="headfilter.supplier = currentSupplier" ><option value=""></option></select>
-							</div>
-						</div>
-						<div class="PRODUCT_fields">
-							<div class="PRODUCT_label name">Numero </div>
-							<div class="PRODUCT_field role">
-								<input id="number" type="text" class="PRODUCT_inputfield" ng-model="headfilter.number" value="{{headfilter.number}}" ></input>
-							</div>
-						</div>
-						<div class="PRODUCT_fields">
-							<div class="PRODUCT_label name">Annullati </div>
-							<div class="PRODUCT_field role">
-								<input id="checkboxact" type="checkbox" class="PRODUCT_inputfield" ng-model="headfilter.inactive" value="{{headfilter.inactive}}" ></input>
-							</div>
-						</div>
-					</div>
-				</div>
+	<div class="row">
+		<div class="col-lg-12"></div>
+	</div>
+	<div class="row" ng-show="showFilter == true">
+		<div class="col-md-6">
+			<form role="form">
+  				<div class="form-group">
+  					<label  for="fromDate">Da Data</label>
+  					<input class="datepicker form-control" type="text" id="fromDate" ng-model="headfilter.fromDate" value="{{headfilter.fromDate}}"  create-datepicker />
+  				</div>
+  				<div class="form-group">
+  					<label  for="customer">Cliente</label>
+  					<select id="customer" class="form-control" ng-model="currentCustomer"    ng-options="customer as customer.customername for customer in customers"  ng-change="headfilter.customer = currentCustomer">
+						<option value=""></option>
+					</select>
+  				</div>
+  				<div class="form-group">
+  					<label  for="documenttype">Tipo documento</label>
+  					<select id="documenttype" class="form-control" ng-model="currentDocument"    ng-options="document as document.description for document in documents" ng-change="headfilter.doc = currentDocument"    > <option value=""></option></select>
+  				</div>
+  				<div class="form-group">
+  					<label  for="active">Attivi</label>
+  					<input  type="checkbox"  id="active" class="form-control" ng-model="headfilter.active" value="{{headfilter.active}}" ></input>
+  				</div>
+  			</form>
+  		</div>
+		<div class="col-md-6">
+			<form role="form">
+  				<div class="form-group">
+  					<label  for="toDate">A data</label>
+  					<input class="form-control " type="text" id="toDate" ng-model="headfilter.toDate" value="{{headfilter.toDate}}"  create-datepicker />
+  				</div>
+  				<div class="form-group">
+  					<label  for="selsupplier">Fornitore</label>
+  					<select id="selsupplier" class="form-control" ng-model="currentSupplier"    ng-options="supplier as supplier.suppliername for supplier in suppliers" ng-data-provider="suppliers" ng-change="headfilter.supplier = currentSupplier" ><option value=""></option></select>
+  				</div>
+  				<div class="form-group">
+  					<label  for="number">Numero</label>
+  					<input id="number" type="text" class="form-control" ng-model="headfilter.number" value="{{headfilter.number}}" ></input>
+  				</div>
+  				<div class="form-group">
+  					<label  for="checkboxact">Annullati</label>
+  					<input id="checkboxact" type="checkbox" class="form-control" ng-model="headfilter.inactive" value="{{headfilter.inactive}}" ></input>
+  				</div>
+  			</form>
+  		</div>
+  			
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			<pagination total-items="bigTotalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" items-per-page="pagesize"></pagination>
+		</div>
+		<div class="col-md-2">
+			<label>Righe per pagina:</label>
+		</div>
+		<div class="col-md-2">
+			<input class="filter" ng-model="pagesize" value="{{pagesize}}">
+		</div>
+		<div class="col-md-2">
+			<button ng-click="getHeadsNumber()" >Filtra</button>
 		</div>
 	</div>
-	<div class="tablecontainer" >
-	  <div class="pagination clearfix">
-				<pagination total-items="bigTotalItems" ng-model="currentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" items-per-page="pagesize"></pagination>
-		
-				<div class="filter">
-					<button ng-click="getHeadsNumber()" >Filtra</button>
-				</div>
-				
-				<div class="filter">
-					<input class="filter" ng-model="pagesize" value="{{pagesize}}">
-				</div>
-				<div class="label filter">Righe per pagina:</div>
-		</div>
-		
+
+	
+	<div class="row" >
+
+		<div class="col-lg-12">
 		<table st-table="headsToDisplay" class="table table-striped" st-safe-src="heads">
 			<thead>
 				<tr>
@@ -211,6 +165,6 @@
 			<tbody>
 			
 			</table>
-			
+			</div>
 	</div>
 </div>

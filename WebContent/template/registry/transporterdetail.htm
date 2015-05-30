@@ -29,38 +29,38 @@
 			<div class="transporter_main_detail">	
 				<div class="info">
 					<div class="fields code">
-						<div class="label ">Codice *</div>
+						<div class="GECO_label ">Codice *</div>
 						<div class="field "><input class="inputfield"  maxlength="10" id="ifname" ng-model="transporter.transportercode" value="{{transporter.transportercode}}"  capitalize  /></div>
 						<div class="error" id="val_ifname" >Campo obbligatorio</div> 
 					</div>
 					<div class="fields code">
-						<div class="label ">Nome *</div>
+						<div class="GECO_label ">Nome *</div>
 						<div class="field "><input class="inputfield"  maxlength="45" id="ifname" ng-model="transporter.transportername" value="{{transporter.transportername}}"  capitalize  /></div>
 						<div class="error" id="val_ifname" >Campo obbligatorio</div> 
 					</div>
 					<div class="fields code">
-						<div class="label ">Cognome *</div>
+						<div class="GECO_label ">Cognome *</div>
 						<div class="field "><input class="inputfield"  maxlength="65" id="ifname" ng-model="transporter.transportersurname" value="{{transporter.transportersurname}}" capitalize   /></div>
 						<div class="error" id="val_ifname" >Campo obbligatorio</div> 
 					</div>
 					<div class="fields code">
-						<div class="label ">Codice Fiscale *</div>
+						<div class="GECO_label ">Codice Fiscale *</div>
 						<div class="field "><input class="inputfield"  maxlength="16" id="ifname" ng-model="transporter.taxcode" value="{{transporter.taxcode}}"  capitalize  /></div>
 						<div class="error" id="val_ifname" >Campo obbligatorio</div> 
 					</div>
 					<div class="fields code">
-						<div class="label ">Partita Iva *</div>
+						<div class="GECO_label ">Partita Iva *</div>
 						<div class="field "><input class="inputfield"  maxlength="11" id="ifname" ng-model="transporter.serialnumber" value="{{transporter.serialnumber}}"  capitalize  /></div>
 						<div class="error" id="val_ifname" >Campo obbligatorio</div> 
 					</div>
 					<div class="fields code">
-						<div class="label ">Attivo</div>
+						<div class="GECO_label ">Attivo</div>
 						<div class="field "><input class="inputfield" type="checkbox" id="ifname" ng-model="transporter.active" value="{{transporter.active}}"  /></div>
 						<div class="error" id="val_ifname" >Campo obbligatorio</div> 
 					</div>
 					<div class="transporter_container">
 						<div class="fields code">
-							<div class="label ">Targa *</div>
+							<div class="GECO_label ">Targa *</div>
 							<div class="field "><input class="inputfield"  maxlength="15" id="ifname" ng-model="transporter.platenumber" value="{{transporter.platenumber}}"  capitalize  /></div>
 							<div class="error" id="val_ifname" >Campo obbligatorio</div> 
 						</div>
@@ -73,20 +73,20 @@
 			<div class="transporter_address_detail">	
 				<div class="contact">
 					<div class="fields address">
-						<div class="label">Indirizzo</div>
+						<div class="GECO_label">Indirizzo</div>
 						<div class="field address"><input class="inputfield"  maxlength="150" ng-model="transporter.address.address" value="{{transporter.address.address}}" capitalize  /></div>
 						<div class="field number"><input class="inputfield"  maxlength="10" ng-model="transporter.address.number" value="{{transporter.address.number}}" /></div>
 					</div>
 					<div class="fields seventy">
-						<div class="label mobile">Citt&#224;</div>
+						<div class="GECO_label mobile">Citt&#224;</div>
 						<div class="field mobile"><input class="inputfield"  maxlength="45" ng-model="transporter.address.city" value="{{transporter.address.city}}"  capitalize /></div>
 					</div>
 					<div class="fields tenth">
-						<div class="label email">Provincia</div>
+						<div class="GECO_label email">Provincia</div>
 						<div class="field email"><input id="ifemail"  maxlength="2" class="inputfield" ng-model="transporter.address.zone" value="{{transporter.address.zone}}"  capitalize /></div>
 					</div>
 					<div class="fields fifteen_right">
-						<div class="label email">CAP</div>
+						<div class="GECO_label email">CAP</div>
 						<div class="field email"><input id="ifemail"  maxlength="6" class="inputfield" ng-model="transporter.address.zipcode" value="{{transporter.address.zipcode}}"  capitalize /></div>
 					</div>
 				</div>
@@ -95,39 +95,39 @@
 		<div class="credentials" ng-if="selectedSection == listsections[0]">
 			<div class="credential">
 				<div class="fields one_on_three_left">
-					<div class="label phone">Telefono 1</div>
+					<div class="GECO_label phone">Telefono 1</div>
 					<div class="field phone"><input class="inputfield"  maxlength="20" ng-model="transporter.contact.phone1" value="{{transporter.contact.phone1}}"  capitalize /></div>
 				</div>
 				<div class="fields one_on_three_left">
-					<div class="label phone">Telefono 2</div>
+					<div class="GECO_label phone">Telefono 2</div>
 					<div class="field phone"><input class="inputfield"  maxlength="20" ng-model="transporter.contact.phone2" value="{{transporter.contact.phone2}}"  capitalize /></div>
 				</div>
 				<div class="fields one_on_three_right">
-						<div class="label email">Fax</div>
+						<div class="GECO_label email">Fax</div>
 						<div class="field email"><input id="ifemail"  maxlength="20" class="inputfield" ng-model="transporter.contact.fax" value="{{transporter.contact.fax}}"  capitalize /></div>
 					</div>
 			</div>
 			<div class="credential">
 				<div class="fields one_on_three_left">
-						<div class="label mobile">Cellulare 1</div>
+						<div class="GECO_label mobile">Cellulare 1</div>
 						<div class="field mobile"><input class="inputfield"  maxlength="20" ng-model="transporter.contact.mobile1" value="{{transporter.contact.mobile1}}"  capitalize /></div>
 					</div>
 				<div class="fields one_on_three_left">
-						<div class="label mobile">Cellulare 2</div>
+						<div class="GECO_label mobile">Cellulare 2</div>
 						<div class="field mobile"><input class="inputfield"  maxlength="20" ng-model="transporter.contact.mobile2" value="{{transporter.contact.mobile2}}" capitalize  /></div>
 					</div>
 				<div class="fields one_on_three_right">
-					<div class="label email">Contatto</div>
+					<div class="GECO_label email">Contatto</div>
 					<div class="field email"><input id="ifemail"  maxlength="45" class="inputfield" ng-model="transporter.contact.reference" value="{{transporter.contact.reference}}"  capitalize /></div>
 				</div>
 			</div>
 			<div class="credential">
 				<div class="fields">
-						<div class="label email">Email 1</div>
+						<div class="GECO_label email">Email 1</div>
 						<div class="field email"><input id="ifemail"  maxlength="45" class="inputfield" ng-model="transporter.contact.email1" value="{{transporter.contact.email1}}" /></div>
 					</div>
 				<div class="fields right">
-						<div class="label email">Email 2</div>
+						<div class="GECO_label email">Email 2</div>
 						<div class="field email"><input id="ifemail"  maxlength="45" class="inputfield" ng-model="transporter.contact.email2" value="{{transporter.contact.email2}}" /></div>
 					</div>
 			</div>

@@ -41,7 +41,7 @@
 		margin:0 auto;
 		
 	} 
-	.container{
+	.GECO_container{
 		width:95%;
 		margin: 0 auto; 
 		
@@ -134,7 +134,7 @@
 	}
 	.tabledetail_row{
 		float:left;
-		width:45%;
+		
 		text-align:center;
 		border-right:1px solid #666666;
 		background:#fff;
@@ -261,6 +261,7 @@
 		background:#fff;
 		height:20px;
 		width:15.4%;
+		box-sizing: content-box;
 	}
 	.header_table{
 		background:#dcdcdc;
@@ -430,6 +431,7 @@ border-radius: 8px;
 margin: 0px 4px 4px;
 height: 150px;
 padding: 10px 7px 27px;
+box-sizing: content-box;
 	}
 	.info.heigher,.contact.heigher{
 		height:200px;
@@ -444,7 +446,7 @@ padding: 10px 7px 27px;
 		width:90%;
 		margin-bottom:10px;
 	}
-	.label{
+	.GECO_label{
 		float:left;
 		margin-bottom: 5px;
 		width: 100%;
@@ -756,3 +758,4 @@ float:left;
 .delete_report_button_size{
 	width:100px;
 }
+*

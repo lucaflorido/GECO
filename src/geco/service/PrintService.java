@@ -6,6 +6,7 @@ import geco.pojo.TblUser;
 import geco.vo.GECOObject;
 import geco.vo.GECOReportOrder;
 import geco.vo.GECOSuccess;
+import geco.vo.filter.StoreFilter;
 import geco.vo.filter.product.SelectProductsFilter;
 
 import java.io.File;
@@ -110,7 +111,7 @@ public class PrintService {
 	@Path("products")
 	@Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED) 
-	public String printPrices(@FormParam("filter") String filter) {
+	public String printProducts(@FormParam("filter") String filter) {
 		PrinterDao dao = new PrinterDao();
 		Gson gson = new Gson();
 		//DocumentDao dao = new DocumentDao();
@@ -118,6 +119,19 @@ public class PrintService {
 		//head = dao.getSingleHead(id);
 		SelectProductsFilter f = gson.fromJson(filter, SelectProductsFilter.class);
 		return gson.toJson(dao.printProductList(context,f));
+	}
+	@POST
+	@Path("storage")
+	@Produces(MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED) 
+	public String printStorages(@FormParam("filter") String filter) {
+		PrinterDao dao = new PrinterDao();
+		Gson gson = new Gson();
+		//DocumentDao dao = new DocumentDao();
+		//Head head = new Head();
+		//head = dao.getSingleHead(id);
+		StoreFilter f = gson.fromJson(filter, StoreFilter.class);
+		return gson.toJson(dao.printProductListStorage(context, f));
 	}
 	@POST
 	@Path("list/{idlist}")

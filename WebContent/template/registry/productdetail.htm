@@ -30,12 +30,12 @@
 			<div class="column_1_2 user">	
 				<div class="info">
 					<div class="fields">
-						<div class="label name">Codice *</div>
+						<div class="GECO_label name">Codice *</div>
 						<div class="field name"><input maxlength="8" class="inputfield" id="ifname" ng-model="product.code" value="{{product.code}}" capitalize   ng-change="setModified()"  /></div>
 						<div class="error" id="val_ifname" >Campo obbligatorio</div> 
 					</div>
 					<div class="fields">
-						<div class="label name">Descrizione *</div>
+						<div class="GECO_label name">Descrizione *</div>
 						<div class="field name"><input maxlength="150" class="inputfield" id="ifname" ng-model="product.description" value="{{product.description}}" capitalize ng-change="setModified()"  /></div>
 						<div class="error" id="val_ifname" >Campo obbligatorio</div> 
 					</div>
@@ -46,11 +46,11 @@
 				<div class="contact">
 					
 					<div class="fields">
-						<div class="label phone">Gestione Lotti</div>
+						<div class="GECO_label phone">Gestione Lotti</div>
 						<div class="field phone"><input class="inputfield" type="checkbox" ng-model="product.manageserialnumber" value="{{product.manageserialnumber}}" ng-change="setModified()"  /></div>
 					</div>
 					<div class="fields">
-						<div class="label name">Fornitore </div>
+						<div class="GECO_label name">Fornitore </div>
 						<div class="field role">
 							<select id="selgroup" class="inputfield combobox" ng-model="currentSupplier"    ng-options="supplier as supplier.suppliername for supplier in suppliers" ng-data-provider="suppliers" create-chosen on-finish-chosen-update ng-change="product.supplier = currentSupplier;setModified()" " ></select>
 						</div>
@@ -62,19 +62,19 @@
 			<div class="column_1_2 user">	
 				<div class="info heigher">
 					<div class="PRODUCT_fields_details">
-						<div class="label name">Prezzo Acquisto </div>
+						<div class="GECO_label name">Prezzo Acquisto </div>
 						<div class="field name"><input type="number" step="0.01" min="0" class="inputfield" id="ifname" ng-model="product.purchaseprice" value="{{product.purchaseprice}}" ng-blur="calculatePrices('sellprice')" ng-change="setModified()"   /></div>
 					</div>
 					<div class="PRODUCT_fields_details">
-						<div class="label name">%</div>
+						<div class="GECO_label name">%</div>
 						<div class="field name"><input  type="number" step="0.01" min="0"  class="inputfield" id="ifname" ng-model="product.percentage" value="{{product.percentage}}"  ng-blur="calculatePrices('sellprice')" ng-change="setModified()" /></div>
 					</div>
 					<div class="PRODUCT_fields_details">
-						<div class="label name">Prezzo Vendita</div>
+						<div class="GECO_label name">Prezzo Vendita</div>
 						<div class="field name"><input type="number" step="0.01" min="0"  class="inputfield" id="ifname" ng-model="product.sellprice" value="{{product.sellprice}}"  ng-blur="calculatePrices('percentage')" ng-change="setModified()" /></div>
 					</div>
 					<div class="PRODUCT_fields_details">
-						<div class="label name">Aliquota</div>
+						<div class="GECO_label name">Aliquota</div>
 						<div class="field role">
 							<select id="seltaxrate" class="inputfield combobox" ng-model="currentTaxRate"    ng-options="taxrate as taxrate.description for taxrate in taxrates" ng-data-provider="taxrates" create-chosen on-finish-chosen-update ng-change="setModified()"  ></select>
 						</div>
@@ -84,13 +84,13 @@
 			<div class="column_2_2 user">
 				<div class="contact heigher">
 					<div class="PRODUCT_fields_details">
-						<div class="label name">Gruppo </div>
+						<div class="GECO_label name">Gruppo </div>
 						<div class="field role">
 							<select id="selgroup" class="inputfield combobox" ng-model="currentGroup"    ng-options="group as group.name for group in groups" ng-data-provider="groups" create-chosen on-finish-chosen-update ng-change="setModified()"  ></select>
 						</div>
 					</div>
 					<div class="PRODUCT_fields_details">
-						<div class="label name">Marca</div>
+						<div class="GECO_label name">Marca</div>
 						<div class="field role">
 							<select id="selbrand" class="inputfield combobox" ng-model="currentBrand"    ng-options="brand as brand.name for brand in brands" ng-data-provider="brands" create-chosen on-finish-chosen-update ng-change="setModified()"  >
 								<option value=""></option>
@@ -98,13 +98,13 @@
 						</div>
 					</div>
 					<div class="PRODUCT_fields_details">
-						<div class="label name">Categoria</div>
+						<div class="GECO_label name">Categoria</div>
 						<div class="field role">
 							<select id="selcategory" class="inputfield combobox" ng-model="currentCategory"    ng-options="category as category.name for category in categorys" ng-change="changeCategory();setModified()" " ng-data-provider="categorys" create-chosen on-finish-chosen-update ></select>
 						</div>
 					</div>
 					<div class="PRODUCT_fields_details">
-						<div class="label name">Sottocategoria</div>
+						<div class="GECO_label name">Sottocategoria</div>
 						<div class="field role">
 							<select id="selsubcategory" class="inputfield combobox" ng-model="currentSubCategory"    ng-options="subcategory as subcategory.name for subcategory in subcategories" ng-data-provider="subcategories" create-chosen on-finish-chosen-update ></select>
 						</div>

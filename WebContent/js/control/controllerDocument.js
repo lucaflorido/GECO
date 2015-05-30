@@ -4,6 +4,7 @@ var gecoDocumentControllers = angular.module("gecoDocumentControllers",[]);
 gecoDocumentControllers.controller('CreateOrdersCtrl',["$scope","$http","$routeParams","$location","$rootScope",'LoginFactory',function($scope,$http,$routeParams,$location,$rootScope,LoginFactory){
 	$scope.filter = {};
 	$scope.generateobj = {};
+	$scope.location = $location;
 	LoginFactory.checklogin();
 	$http.get('rest/basic/document').success(function(data){
 		$scope.documentsTo= data;

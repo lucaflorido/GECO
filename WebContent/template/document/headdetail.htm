@@ -1,39 +1,353 @@
-<div class="container userlist "   >
-	<div class="toolbar_detail">
-		<h3>Documento:</h3>
-		<div class="buttonmenu savebutton admin" ng-click="saveHead()">
-			<div class="save buttonicon">
-			</div>
-			<div class="buttonlabel">
-				Salva [Alt+Q]
-			</div>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-2">
+			DOCUMENTO:
 		</div>
-		<div class="buttonmenu redobutton ">
-			<div class="redo buttonicon">
-			</div>
-			<div class="buttonlabel">
-				Ricarica [Alt+R]
-			</div>
+		<div class="col-md-2">
+			<button type="button" class="btn btn-primary form-control" ng-click="saveHead()" >Salva [Alt+Q]</button>
 		</div>
-		<div class="buttonmenu redobutton " ng-click="openNewDocument()">
-			<div class="redo buttonicon">
-			</div>
-			<div class="buttonlabel">
-				Nuovo Documento [Alt+J]
-			</div>
+		<div class="col-md-2">
+			<button type="button" class="btn btn-primary form-control"  >Ricarica [Alt+R] </button>
 		</div>
-		<div class="printbutton buttonmenu" ng-click="printElements()">
-			<div class="print">
-			</div>
-			<div class="printlabel">
-				Stampa
-			</div>
+		<div class="col-md-2">
+			<button type="button" class="btn btn-primary form-control" ng-click="openNewDocument()" >Nuovo [Alt+J]</button>
 		</div>
-		<div class="multilayout" >
+		<div class="col-md-2">
+			<button type="button" class="btn btn-primary form-control" ng-click="printElements()" >Stampa </button>
+		</div>
+		<div class="col-md-2">
 			<select ng-model="selectedSection"    ng-options="section for section in listsections" >
 			</select>
 		</div>
 	</div>
+	<div class="row">
+		<div class="col-lg-12"></div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			<form role="form">
+				<div class="form-group">
+					<label>Tipologia</label>
+					<select id="selgroup" class="form-control" ng-model="currentDocument"    ng-options="document as getLabel(document) for document in documents" ng-change="head.document = currentDocument;calculateNumber();setModified()" ng-data-provider="documents"   ><option value=""></option></select>
+				</div>
+			</form>
+			
+		</div>
+		<div class="col-md-3">
+			<form role="form">
+				<div class="form-group">
+					<label>Data *</label>
+					<input class="form-control datepicker" type="text" id="startDate" ng-model="head.date" value="{{head.date}}" ng-change="calculateNumber();setModified()" create-datepicker ng-blur="formatYear()" />
+				</div>
+			</form>
+			
+		</div>
+		<div class="col-md-3">
+			<form role="form">
+				<div class="form-group">
+					<label>Numero</label>
+					<input class="form-control" id="ifname" ng-model="head.number" value="{{head.number}}" ng-change="setModified()"  />
+				</div>
+			</form>
+			
+		</div>
+		<div class="col-md-3">
+			<form role="form">
+				<div class="form-group">
+					<label>Protocollo</label>
+					<input class="form-control"  ng-model="head.serialnumber" value="{{head.serialnumber}}"   />
+				</div>
+			</form>
+			
+		</div>
+	</div>
+	<div class="row"  ng-show="selectedSection == listsections[0]">
+		<div class="col-lg-4" ng-show="currentDocument.customer == true">
+			<form role="form">
+				<div class="form-group">
+					<label>Cliente</label>
+					<select id="selcliente" class="form-control" ng-model="currentCustomer"    ng-options="customer as customer.customername for customer in customers" ng-change="head.customer = currentCustomer;changeCustomer(currentCustomer.idCustomer);setModified()"  ng-data-provider="customers"    ><option value=""></option></select>
+				</div>
+			</form>
+		</div>
+		<div class="col-lg-4" ng-show="currentDocument.customer == true">
+			<form role="form">
+				<div class="form-group">
+					<label>Destinazione</label>
+					<select id="seldestination" class="form-control" ng-model="currentDestination"    ng-options="destination as destination.destinationname for destination in destinations" ng-change="head.destination = currentDestination;setModified();changeDestination();"  ng-data-provider="destinations"  ><option value=""></option></select>
+				</div>
+			</form>
+		</div>
+		<div class="col-lg-4" ng-show="currentDocument.supplier == true">
+			<form role="form">
+				<div class="form-group">
+					<label>Fornitore</label>
+					<select id="selsupplier" class="form-control" ng-model="currentSupplier"    ng-options="supplier as supplier.suppliername for supplier in suppliers"  ng-change="head.supplier = currentSupplier;changeSupplier();setModified()"   ng-data-provider="suppliers" ><option value=""></option></select>
+				</div>
+			</form>
+		</div>
+		
+	
+	</div>
+	<div class="row"  ng-show="selectedSection == listsections[0]">
+		<div class="col-lg-4" >
+			<form role="form">
+				<div class="form-group">
+					<label>Listino</label>
+					<select id="sellist" class="form-control" ng-model="currentList"    ng-options="list as list.code for list in lists"  ng-change="head.list = currentList;setModified()"  ng-data-provider="lists"    ></select>
+				</div>
+			</form>
+		</div>
+		<div class="col-lg-4" >
+			<form role="form">
+				<div class="form-group">
+					<label>Vettore</label>
+					<select id="selvettore" class="form-control" ng-model="currentTransporter"    ng-options="transporter as transporter.transportersurname for transporter in transporters"  ng-change="head.transporter = currentTransporter;setModified()"  ng-data-provider="transporters"     ></select>
+				</div>
+			</form>
+		</div>
+		<div class="col-lg-4" >
+			<form role="form">
+				<div class="form-group">
+					<label>Pagamento</label>
+					<select id="selpayment" class="form-control" ng-model="currentPayment"    ng-options="payment as payment.code for payment in payments"  ng-change="head.payment = currentPayment;setModified()"  ng-data-provider="payments"    ></select>
+				</div>
+			</form>
+		</div>
+		
+	</div>
+	<div class="row" ng-show="selectedSection == listsections[1]">
+		<div class="col-lg-3">
+			<button type="button" class="btn btn-primary form-control" ng-click="addRowElement();setModified()">Aggiungi Prodotto [Alt+n]</button>
+			
+		</div>
+	</div>
+	<div class="row" ng-if="selectedSection == listsections[1] && isLoadSerialN == true">
+		<div class="col-lg-12">
+			<form role="form">
+				<div class="form-group">
+					<label>Lotto:</label>
+					<input id="forceserial" />
+				</div>
+				<div class="form-group">
+					<label>Scadenza:</label>
+					<input id="forceexpiredate" create-datepicker />
+					<button ng-click="forceSerialNumbers()">Inserisci lotti generici</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="row" ng-if="selectedSection == listsections[1] && isUnloadSerialN == true">
+		<div class="col-lg-12">
+			<button  type="button" class="btn btn-primary form-control"  ng-click="forceLoadSerialNumbers()">Inserisci lotti disponibili</button>
+		</div>
+	</div>
+	<div class="row" ng-show="selectedSection == listsections[1]">
+		<div class="col-lg-12">
+			<table class="table table-striped" st-table="rowsToDisplay" st-safe-src="head.rows" ng-if="isOrder == false && isLoadSerialN == false && isUnloadSerialN == false">
+				<thead>
+					<tr>
+						<th >&nbsp;</th>
+						<th st-sort="productcode" st-sort-default="anything" st-skip-natural="true" >Codice</th>
+						<th st-sort="productdescription" st-sort-default="anything" st-skip-natural="true">Descrizione</th>
+						<th  >UM</th>
+						<th >Qta</th>
+						<th >Prezzo</th>
+						<th >Imponibile</th>
+						<th >Imposta</th>
+						<th>Totale</th>
+						<th >&nbsp;</th>
+					</tr>
+				</thead>
+				<tbody  >
+					<tr ng-repeat="row in rowsToDisplay">
+						<td><div class=" modify" ng-click="setCurrentRow(row)"><div class="modifyicon"></div></div></td>
+						<td  >&nbsp;{{row.productcode}}</td>
+						<td  >&nbsp;{{row.productdescription}}</td>
+						<td >&nbsp;{{row.productum}}</td>
+						<td ><div class="contain_input_td"><input type="text" class="inputfield" value="{{row.quantity}}" ng-model="row.quantity"  ng-change="calculateRow(row);setModified()" /></div></td>
+						<td >&nbsp;{{row.price}}</td>
+						<td >&nbsp;{{row.amount}}</td>
+						<td >&nbsp;{{row.taxamount}}</td>
+						<td>&nbsp;{{row.total}}</td>
+						<td ><div class=" delete confirm" ng-click="confirmDelete(row)" ><div class="deleteicon"></div></div></td>
+					</tr>
+				</tbody>
+			</table>
+			<table class="table table-striped" ng-if="isOrder == true" st-table="rowsToDisplay" st-safe-src="head.rows">
+				<thead>
+					<tr>
+						<th >&nbsp;</th>
+						<th >Fornitore</th>
+						<th st-sort="productcode" st-sort-default="anything" st-skip-natural="true" >Codice</th>
+						<th st-sort="productdescription" st-sort-default="anything" st-skip-natural="true">Descrizione</th>
+						<th >UM</th>
+						<th >Qta</th>
+						<th >Prezzo</th>
+						<th >Imponibile</th>
+						<th>Imposta</th>
+						<th >Totale</th>
+						
+						<th>&nbsp;</th>
+					</tr>
+				</thead>
+				<tbody  >
+					<tr ng-repeat="row in rowsToDisplay ">
+						<td ><div class=" modify" ng-click="setCurrentRow(row)"><div class="modifyicon"></div></div></td>
+						<td  >&nbsp;{{row.product.supplier.suppliername}}</td>
+						<td >&nbsp;{{row.productcode}}</td>
+						<td  >&nbsp;{{row.productdescription}}</td>
+						<td >&nbsp;{{row.productum}}</td>
+						<td ><div class="contain_input_td"><input type="text" class="inputfield" value="{{row.quantity}}" ng-model="row.quantity"  ng-change="calculateRow(row);setModified()" /></div></td>
+						<td>&nbsp;{{row.price}}</td>
+						<td >&nbsp;{{row.amount}}</td>
+						<td >&nbsp;{{row.taxamount}}</td>
+						<td >&nbsp;{{row.total}}</td>
+						
+						<td ><div class=" delete confirm" ng-click="confirmDelete(row)" ><div class="deleteicon"></div></div></td>
+					</tr>
+				</tbody>
+			</table>
+							
+			<table class="table table-striped"  ng-if="isLoadSerialN == true || isUnloadSerialN == true" st-table="rowsToDisplay" st-safe-src="head.rows">
+				<thead>
+					<tr>
+						<th >&nbsp;</th>
+						<th>Codice</th>
+						<th >Descrizione</th>
+						<th >Lotto</th>
+						<th >Scadenza</th>
+						<th>UM</th>
+						<th >Qta</th>
+						<th >Prezzo</th>
+						<th >Imponibile</th>
+						<th >Imposta</th>
+						<th >Totale</th>
+						<th >&nbsp;</th>
+					</tr>
+				</thead>
+				<tbody  >
+					<tr ng-repeat="row in rowsToDisplay">
+						<td ><div class=" modify" ng-click="setCurrentRow(row)"><div class="modifyicon"></div></div></td>
+						<td  ng-if="row.product.manageserialnumber == true && (row.serialnumber == '' || row.expiredate == '')  " >!!!!!{{row.productcode}}</td>
+						<td  ng-if="row.product.manageserialnumber == false || (row.product.manageserialnumber == true && row.serialnumber != '' && row.expiredate != '')  " >{{row.productcode}}</td>
+						<td  >&nbsp;{{row.productdescription}}</td>
+						<td ><div class="contain_input_td"><input type="text"  class="inputfield" ng-model="row.serialnumber" value="{{row.serialnumber}}" ng-change="setModified()" /></div></td>
+						<td ><div class="contain_input_td"><input type="text" class="inputfield"  ng-model="row.expiredate" value="{{row.expiredate}}" create-datepicker ng-change="setModified()" /></div></td>
+						<td >&nbsp;{{row.productum}}</td>
+						<td><div class="contain_input_td"><input type="text" class="inputfield" value="{{row.quantity}}" ng-model="row.quantity"  ng-change="calculateRow(row);setModified()" /></div></td>
+						<td >&nbsp;{{row.price}}</td>
+						<td>&nbsp;{{row.amount}}</td>
+						<td >&nbsp;{{row.taxamount}}</td>
+						<td >&nbsp;{{row.total}}</td>
+						<td ><div class=" delete confirm" ng-click="confirmDelete(row)" ><div class="deleteicon"></div></div></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	
+</div>
+<div class="container-fluid HEAD_addrow" ng-show="currentRow != null && showNewRow == true">
+	<div class="row" >
+		<div class="col-lg-1 col-lg-offset-11">
+			<button ng-click="showNewRow = false">X</button>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-4">
+			<form role="form">
+				<div class="form-group">
+					<label>Codice [Alt + v per cercare]*</label>
+					<input tabindex="0"   class="form-control" id="prod_code" ng-model="currentRow.productcode" value="{{currentRow.productcode}}" ng-blur="getProduct(currentRow.productcode)" ng-change="setModified()" capitalize />
+				</div>
+			</form>
+		</div>
+		<div class="col-lg-8">
+			<form role="form">
+				<div class="form-group">
+					<label>Descrizione *</label>
+					<input class="form-control"   id="ifname" ng-model="currentRow.productdescription" value="{{currentRow.productdescription}}"  ng-change="setModified()" capitalize />
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-2" ng-show="show_qta">
+			<form role="form">
+				<div class="form-group">
+					<label>Giacenza</label>
+					<div class="form-control">&nbsp;{{currentRow.product.stockqta}} {{currentRow.productum}}</div>
+				</div>
+			</form>
+		</div>
+		<div class="col-lg-1" ng-show="currentRow.product != null">
+			<div class=" " ng-show="show_qta == false" ng-click="show_qta = !show_qta" ><div class="storeicon open"></div></div>
+			<div class=" " ng-show="show_qta == true" ng-click="show_qta = !show_qta" ><div class="storeicon close"></div></div>
+		</div>
+		<div class="col-lg-2">
+			<form role="form">
+				<div class="form-group">
+					<label>Quantit&#224; </label>
+					<input type="text"  class="inputfield" id="qta" ng-model="currentRow.quantity" value="{{currentRow.quantity}}" ng-change="calculateRow(currentRow,$event)" ng-keydown="addNewRowFromQuantity($event)" />
+				</div>
+			</form>	
+		</div>
+		<div class="col-lg-1">
+			<form role="form">
+				<div class="form-group">
+					<label>UM *</label>
+					<div class="form-control">{{currentRow.productum}}</div>
+				</div>
+			</form>	
+		</div>
+		<div class="col-lg-1">
+			<div class=" " ng-show="currentRow.product != null" ng-click="show_price = !show_price" ><div class="detailicon open"></div></div>
+			<div class="HEAD_overlay " ng-show="show_price">
+				<table class="GECO_table two_two clearfix">
+					<thead>
+						<tr >
+							<td class="header_table row_table first" >Data</td>
+							<td class="header_table row_table">Prezzo</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr  ng-repeat="history in currentRow.product.pricehistory ">
+							<td class="row_table first">{{history.date}}</td>
+							<td class="row_table"> {{history.price}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>								
+		<div class="col-lg-2" >
+			<form role="form">
+				<div class="form-group">
+					<label>Prezzo * </label>
+					<input  type="text" step="0.001" min="0"  class="form-control" id="ifname" ng-model="currentRow.price" value="{{currentRow.price}}"  ng-change="calculateRow();setModified()"  />
+				</div>
+			</form>
+		</div>	
+		<div class="col-lg-2" >
+			<form role="form">
+				<div class="form-group">
+					<label>Aliquota * </label>
+					<div class="form-control ">{{currentRow.taxrate.value}}</div>
+				</div>
+			</form>
+		</div>						
+		<div class="col-lg-1" >
+			<form role="form">
+				<div class="form-group">
+					<label>Causale *</label>
+					<select ng-model="currentRow.type" value="{{currentRow.type}}"  ng-change="calculateRow();setModified()"  ><option>V</option><option>S</option><option>O</option> </select>
+				</div>
+			</form>
+		</div>									
+	</div>
+</div>
+<div class="container userlist "   >
+	
 	<div id="dialog"  class="HEAD_dialog_box " ng-show="showSearch == true">
 		<div class="HEAD_dialog_box_content ui-dialog" >
 			<div>
@@ -68,137 +382,28 @@
 		</div>
 		</div>
 	</div>
-	<div class="details">
-		<div class="generaltable">
-			<div class="head_main_detail">	
-				<div class="info " >
-					<div class="conteiner-fluid">
-						<div class="row">
-							<div class="col-md-3">
-								<div class="label ">Tipologia </div>
-							</div>
-							<div class="col-md-3">
-								<div class="label ">Data *</div>
-							</div>
-							<div class="col-md-2">
-								<div class="label ">Numero </div>
-							</div>
-							<div class="col-md-2">
-								<div class="label ">Protocollo </div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-3">
-								<select id="selgroup" class="inputfield" ng-model="currentDocument"    ng-options="document as getLabel(document) for document in documents" ng-change="head.document = currentDocument;calculateNumber();setModified()" ng-data-provider="documents" create-chosen on-finish-chosen-update-fullsize  ></select>
-							</div>
-							<div class="col-md-3">
-								<input class="inputfield datepicker" type="text" id="startDate" ng-model="head.date" value="{{head.date}}" ng-change="calculateNumber();setModified()" create-datepicker ng-blur="formatYear()" />
-							</div>
-							<div class="col-md-2">
-								<input class="inputfield" id="ifname" ng-model="head.number" value="{{head.number}}" ng-change="setModified()"  />
-							</div>
-							<div class="col-md-2">
-								<input class="inputfield"  ng-model="head.serialnumber" value="{{head.serialnumber}}"   />
-							</div>
-						</div>
-					</div>
-				<!--div class="PRODUCT_fields_details code">
-							<div class="label ">Tipologia </div>
-							<div class="field">
-								<select id="selgroup" class="inputfield" ng-model="currentDocument"    ng-options="document as getLabel(document) for document in documents" ng-change="head.document = currentDocument;calculateNumber();setModified()" ng-data-provider="documents" create-chosen on-finish-chosen-update  ></select>
-							</div>
-						</div>
-					<div class="PRODUCT_fields_details code">
-						<div class="label ">Data *</div>
-						<div class="field ">
-						<input class="inputfield datepicker" type="text" id="startDate" ng-model="head.date" value="{{head.date}}" ng-change="calculateNumber();setModified()" create-datepicker ng-blur="formatYear()" />
-						</div>
-						
-					</div>
-					<div class="PRODUCT_fields_details code">
-						<div class="label ">Numero *</div>
-						<div class="field "><input class="inputfield" id="ifname" ng-model="head.number" value="{{head.number}}" ng-change="setModified()"  /></div>
-						
-					</div>
-					
-					<div class="category_group">
-					<div class="PRODUCT_fields_details code">
-						<div class="label ">Protocollo *</div>
-						<div class="field "><input class="inputfield"  ng-model="head.serialnumber" value="{{head.serialnumber}}"   /></div>
-						
-					</div>
-					
-						
-				</div-->	
-				</div>
-				<div class="info added_info" ng-show="selectedSection == listsections[0]">
-					
-					<div class="category_group">
-							<div class="PRODUCT_fields_details code"  ng-show="currentDocument.customer == true" >
-								<div class="label ">Cliente </div>
-								<div class="field">
-									<select id="selcliente" class="inputfield" ng-model="currentCustomer"    ng-options="customer as customer.customername for customer in customers" ng-change="head.customer = currentCustomer;changeCustomer(currentCustomer.idCustomer);setModified()"  ng-data-provider="customers" create-chosen on-finish-chosen-update  ></select>
-								</div>
-							</div>
-							<div class="PRODUCT_fields_details code" ng-show="currentDocument.customer == true" >
-								<div class="label ">Destinazione </div>
-								<div class="field">
-									<select id="seldestination" class="inputfield" ng-model="currentDestination"    ng-options="destination as destination.destinationname for destination in destinations" ng-change="head.destination = currentDestination;setModified();changeDestination();"  ng-data-provider="destinations" create-chosen on-finish-chosen-update ></select>
-								</div>
-							</div>
-							<div class="PRODUCT_fields_details code" ng-show="currentDocument.supplier == true">
-								<div class="label ">Fornitore </div>
-								<div class="field">
-									<select id="selsupplier" class="inputfield" ng-model="currentSupplier"    ng-options="supplier as supplier.suppliername for supplier in suppliers"  ng-change="head.supplier = currentSupplier;changeSupplier();setModified()"   ng-data-provider="suppliers" create-chosen on-finish-chosen-update ></select>
-								</div>
-							</div>
-							
-					</div>
-					<div class="category_group">
-						<div class="PRODUCT_fields_details code">
-								<div class="label ">Listino </div>
-								<div class="field">
-									<select id="sellist" class="inputfield" ng-model="currentList"    ng-options="list as list.code for list in lists"  ng-change="head.list = currentList;setModified()"  ng-data-provider="lists" create-chosen on-finish-chosen-update  ></select>
-								</div>
-							</div>
-						<div class="PRODUCT_fields_details code">
-								<div class="label ">Vettore </div>
-								<div class="field">
-									<select id="selvettore" class="inputfield" ng-model="currentTransporter"    ng-options="transporter as transporter.transportersurname for transporter in transporters"  ng-change="head.transporter = currentTransporter;setModified()"  ng-data-provider="transporters" create-chosen on-finish-chosen-update   ></select>
-								</div>
-							</div>
-						<div class="PRODUCT_fields_details code">
-								<div class="label ">Pagamento </div>
-								<div class="field">
-									<select id="selpayment" class="inputfield" ng-model="currentPayment"    ng-options="payment as payment.code for payment in payments"  ng-change="head.payment = currentPayment;setModified()"  ng-data-provider="payments" create-chosen on-finish-chosen-update  ></select>
-								</div>
-							</div>	
-					</div>	
-					
-				</div>
-			</div>
-			
-		</div>
+	<!--div class="details">
+		
 		<div class="head_destination" ng-show="selectedSection == listsections[1]" >
 		
 		
 			<div class="credential">
 				<div class="detailview"  >
-						<div class="add_container_doc" ng-click="addRowElement();setModified()" >
+						< div class="add_container_doc" ng-click="addRowElement();setModified()" >
 							<div class="add buttonicon">
 							</div>
-							<div class="addlabel">
+							<div class="add">
 								Aggiungi Prodotto [Alt+n]
 							</div>
 							
 						</div>
 						<div class="  GECO_table_container ">
-							<table class="GECO_table_detail clearfix nine_two " ng-if="isOrder == false && isLoadSerialN == false && isUnloadSerialN == false">
+							< table class="GECO_table_detail clearfix nine_two " ng-if="isOrder == false && isLoadSerialN == false && isUnloadSerialN == false">
 								<thead>
 									<tr>
 										<td class="tabledetail_header_element tabledetail_row row_table half first ">&nbsp;</td>
-										<td class="tabledetail_header_element tabledetail_row row_table "><div class="sorter " ng-click="sortFunction('productcode')"><div class="sorter_label">Codice</div><div class="sortericon productcode"></div></div></td>
-										<td class="tabledetail_header_element tabledetail_row row_table double"><div class="sorter " ng-click="sortFunction('productdescription')"><div class="sorter_label">Descrizione</div><div class="sortericon productdescription"></td>
+										<td class="tabledetail_header_element tabledetail_row row_table "><div class="sorter " ng-click="sortFunction('productcode')"><div class="sorter_">Codice</div><div class="sortericon productcode"></div></div></td>
+										<td class="tabledetail_header_element tabledetail_row row_table double"><div class="sorter " ng-click="sortFunction('productdescription')"><div class="sorter_">Descrizione</div><div class="sortericon productdescription"></td>
 										<td class="tabledetail_header_element tabledetail_row row_table half" >UM</td>
 										<td class="tabledetail_header_element tabledetail_row row_table">Qta</td>
 										<td class="tabledetail_header_element tabledetail_row row_table">Prezzo</td>
@@ -308,14 +513,14 @@
 										<td class="row_table half  "><div class=" delete confirm" ng-click="confirmDelete(row)" ><div class="deleteicon"></div></div></td>
 									</tr>
 								</tbody>
-							</table>
+							</table-->
 							
 						
-						</div>
+						<!--/div>
 						<table class="GECO_table_detail HEAD_addrow" ng-show="currentRow != null && showNewRow == true">
 								
 								<tbody>
-									<tr>
+									< tr>
 										<td>
 											<div class="button_bar_detail">
 												<div class="button_bar_close">
@@ -327,13 +532,13 @@
 									<tr>
 										<td>
 										<div class="td_col td_thirty">
-											<div class="label ">Codice [Alt + v per cercare]*</div>
+											<div class=" ">Codice [Alt + v per cercare]*</div>
 											<div class="field "><input tabindex="0"  maxlength="20" class="inputfield" id="prod_code" ng-model="currentRow.productcode" value="{{currentRow.productcode}}" ng-blur="getProduct(currentRow.productcode)" ng-change="setModified()" capitalize /></div>
 										</div>
 										
 										
 										<div class="td_col td_seventy">
-											<div class="label ">Descrizione *</div>
+											<div class=" ">Descrizione *</div>
 											<div class="detail_field name"><input class="inputfield"  maxlength="150" id="ifname" ng-model="currentRow.productdescription" value="{{currentRow.productdescription}}"  ng-change="setModified()" capitalize /></div>
 										</div>
 										</td>
@@ -342,25 +547,25 @@
 										<td>
 											<div  ng-show="show_qta">
 													<div class="td_col td_ten">
-														<div class="label ">Giacenza</div>
+														<div class=" ">Giacenza</div>
 														<div class="field ">&nbsp;{{currentRow.product.stockqta}} {{currentRow.productum}}</div>
 													</div>
 												</div>
 											<div class="td_col td_five" ng-show="currentRow.product != null">
-												<div class="label " ng-show="show_qta == false" ng-click="show_qta = !show_qta" ><div class="storeicon open"></div></div>
-												<div class="label " ng-show="show_qta == true" ng-click="show_qta = !show_qta" ><div class="storeicon close"></div></div>
+												<div class=" " ng-show="show_qta == false" ng-click="show_qta = !show_qta" ><div class="storeicon open"></div></div>
+												<div class=" " ng-show="show_qta == true" ng-click="show_qta = !show_qta" ><div class="storeicon close"></div></div>
 											</div>
 										<div class="td_col td_ten">
-											<div class="label ">Quantit&#224; </div>
+											<div class=" ">Quantit&#224; </div>
 											<div class="field "><input type="text"  class="inputfield" id="qta" ng-model="currentRow.quantity" value="{{currentRow.quantity}}" ng-change="calculateRow(currentRow,$event)" ng-keydown="addNewRowFromQuantity($event)" /></div>
 										</div>
 										
 										<div class="td_col td_ten">
-											<div class="label ">UM *</div>
+											<div class=" ">UM *</div>
 											<div class="field ">&nbsp;{{currentRow.productum}}</div>
 										</div>
 										<div class="td_col td_five">
-											<div class="label " ng-show="currentRow.product != null" ng-click="show_price = !show_price" ><div class="detailicon open"></div></div>
+											<div class=" " ng-show="currentRow.product != null" ng-click="show_price = !show_price" ><div class="detailicon open"></div></div>
 											<div class="HEAD_overlay " ng-show="show_price">
 												<table class="GECO_table two_two clearfix">
 													<thead>
@@ -379,16 +584,16 @@
 											</div>
 										</div>
 										<div class="td_col td_thirty">
-											<div class="label ">Prezzo * </div>
-											<!--div class="field " ng-show="showprice == false">{{currentRow.price}} <button ng-click="showprice = true">Modifica</button></div-->
+											<div class=" ">Prezzo * </div>
+											<div class="field " ng-show="showprice == false">{{currentRow.price}} <button ng-click="showprice = true">Modifica</button></div>
 											<div class="field " ><input  type="text" step="0.001" min="0"  class="inputfield" id="ifname" ng-model="currentRow.price" value="{{currentRow.price}}"  ng-change="calculateRow();setModified()"  /></div>
 										</div>
 										<div class="td_col td_twenty">
-											<div class="label ">Aliquota *</div>
+											<div class=" ">Aliquota *</div>
 											<div class="field ">{{currentRow.taxrate.value}}</div>
 										</div>
 										<div class="td_col td_ten">
-											<div class="label ">Causale *</div>
+											<div class=" ">Causale *</div>
 											<div class="field "><select ng-model="currentRow.type" value="{{currentRow.type}}"  ng-change="calculateRow();setModified()"  ><option>V</option><option>S</option><option>O</option> </select></div>
 										</div>
 										</td>
@@ -396,17 +601,17 @@
 									<tr ng-if="currentRow.product.manageserialnumber == true">
 										<td ng-show="currentDocument.storemovement.genericLoad == true || currentDocument.storemovement.supplierLoad == true || currentDocument.storemovement.internalLoad == true || currentDocument.storemovement.comebackLoad == true">
 											<div class="td_col td_thirty">
-												<div class="label ">Lotto *</div>
+												<div class=" ">Lotto *</div>
 												<div class="field "><input class="inputfield" id="ifname" ng-model="currentRow.serialnumber" value="{{currentRow.serialnumber}}" ng-change="setModified()"  /></div>
 											</div>
 											<div class="td_col td_thirty">
-												<div class="label ">Scadenza *</div>
+												<div class=" ">Scadenza *</div>
 												<div class="field "><input class="inputfield" id="ifname" ng-model="currentRow.expiredate" value="{{currentRow.expiredate}}" ng-change="setModified()" create-datepicker  /></div>
 											</div>
 										</td>
 										<td ng-show="currentDocument.storemovement.genericUnload == true || currentDocument.storemovement.customerUnload == true  || currentDocument.storemovement.internalUnload == true   || currentDocument.storemovement.expiredUnload == true">
 											<div class="fields code">
-												<div class="label ">Lotto </div>
+												<div class=" ">Lotto </div>
 												<div class="field">
 													<select id="sc" class="inputfield" ng-model="currentRow.serialnumber"    ng-options="sc as sc.serialcode for sc in currentRow.product.storage.storagesc" ng-change="setModified()"  ></select>
 												</div>
@@ -417,15 +622,15 @@
 									<tr>
 										<td>
 										<div class="td_col td_thirty">
-											<div class="label ">Importo *</div>
+											<div class=" ">Importo *</div>
 											<div class="field ">{{currentRow.amount}}</div>
 										</div>
 										<div class="td_col td_thirty">
-											<div class="label ">Imposta *</div>
+											<div class=" ">Imposta *</div>
 											<div class="field ">{{currentRow.taxamount}}</div>
 										</div>
 										<div class="td_col td_thirty">
-											<div class="label ">Totale *</div>
+											<div class=" ">Totale *</div>
 											<div class="field ">{{currentRow.total}}</div>
 										</div>
 										</td>
@@ -436,7 +641,7 @@
 						
 					</div>
 			</div>
-		</div>
+		</div-->
 		<div class="HEAD_total_container" ng-show="selectedSection == listsections[2]">
 					<div class="HEAD_Total_group">
 							<table class="GECO_table_detail two_two">
@@ -536,4 +741,3 @@
 					
 		</div>
 	</div>
-</div>

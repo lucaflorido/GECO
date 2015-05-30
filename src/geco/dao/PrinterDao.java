@@ -3,6 +3,7 @@ package geco.dao;
 
 import geco.print.PrintPriceList;
 import geco.print.PrintProductList;
+import geco.print.PrintProductStorage;
 import geco.print.PrintReportOrder;
 import geco.print.PrintReportOrderSubreport;
 import geco.print.PrintSingleHead;
@@ -20,6 +21,8 @@ import geco.vo.ListProduct;
 import geco.vo.Product;
 import geco.vo.Report;
 import geco.vo.Row;
+import geco.vo.Storage;
+import geco.vo.filter.StoreFilter;
 import geco.vo.filter.product.SelectProductsFilter;
 
 import java.io.File;
@@ -37,6 +40,9 @@ import java.util.TreeSet;
 
 import javax.print.attribute.standard.PrinterResolution;
 import javax.servlet.ServletContext;
+
+
+
 
 
 
@@ -344,4 +350,37 @@ public class PrinterDao {
         }
         return new GECOSuccess();
 	 }
+	@SuppressWarnings("unchecked")
+	public String printProductListStorage(ServletContext context,StoreFilter filter){
+		try{
+			//generateAshwinFriends();
+			File f = new File(context.getRealPath("report/productliststorage.jasper"));
+			 
+		    if(f.exists() == false){
+				JasperCompileManager.compileReportToFile(context.getRealPath("report/productliststorage.jrxml"), context.getRealPath("report/productliststorage.jasper"));
+			}
+		    Company comp = new RegistryDao().getCompany();
+		    ArrayList<Storage> prodsNoOrdered = new  StoreDao().getListStorage(filter);
+		    TreeSet<Storage> prods = new TreeSet<Storage>();
+		    prods.addAll(prodsNoOrdered);
+			 
+			Collection<PrintProductStorage> headcoll = new ArrayList<PrintProductStorage>();
+			Map<String, Object> map = new HashMap<String ,Object>();
+			map.put("title","Lista");
+			for (Iterator<Storage> it = prods.iterator();it.hasNext();){
+				PrintProductStorage ph = new PrintProductStorage();
+				ph.setFromObject(comp, it.next());
+				headcoll.add(ph);
+			}
+			JRDataSource datasource = new JRBeanCollectionDataSource(headcoll);
+			JasperPrint print = JasperFillManager.fillReport(context.getRealPath("report/productliststorage.jasper"),map,datasource );
+			FileOutputStream fileOutputStream = new FileOutputStream(context.getRealPath("report/productliststorage.pdf"));
+			JasperExportManager.exportReportToPdfStream(print, fileOutputStream);
+		}catch(Exception ex){
+			ex.printStackTrace();
+			throw new ExceptionInInitializerError(ex);
+		}
+		
+		return "/GeCoServices/report/productliststorage.pdf";
+	}
 }

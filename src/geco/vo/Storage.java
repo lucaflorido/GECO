@@ -6,13 +6,15 @@ import java.util.Set;
 
 
 
+
+
 import geco.pojo.Itbl;
 import geco.pojo.TblStorage;
 import geco.pojo.TblStorageSerialCode;
 import geco.properties.GECOParameter;
 
 
-public class Storage implements Ivo {
+public class Storage implements Ivo,Comparable<Storage> {
 	private int idStorage;
 	private UnitMeasure um;
 	private Product product;
@@ -68,6 +70,10 @@ public class Storage implements Ivo {
 	}
 	public void setProduct(Product product) {
 		this.product = product;
+	}
+	@Override
+	public int compareTo(Storage p){
+		return this.getProduct().getCode().compareTo(p.getProduct().getCode());
 	}
 	public void convertFromTable(Itbl obj){
 		TblStorage st = (TblStorage)obj;

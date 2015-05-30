@@ -1,6 +1,7 @@
 .heads{
-    
-	font-size: 9.5px;
+    font-size: 9.5px;
+	margin-left: 0px;
+	margin-right: 0;
 }
 .heads .single{
 	width:12%;

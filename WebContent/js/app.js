@@ -90,11 +90,11 @@ var gecoApp = angular.module("gecoApp",["ngRoute",
         link: function (scope, element, attrs) {
 					
 			scope.$watch(attrs.ngDataProvider, function() {
-					element.chosen({allow_single_deselect: true,width: "25%"});
+					element.chosen({allow_single_deselect: true,width: "20%"});
                     element.trigger("chosen:updated");
 			});
             scope.$watch(attrs.ngModel, function() {
-					element.chosen({allow_single_deselect: true,width: "25%"});
+					element.chosen({allow_single_deselect: true,width: "20%"});
                     element.trigger("chosen:updated");
 			});
                 

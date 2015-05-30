@@ -12,7 +12,7 @@
 				<div class="info " ng-if="selectedSection == listsections[1]">
 					<div class="category_group">
 						<div class="fields code">
-							<div class="label ">Data </div>
+							<div class="GECO_label ">Data </div>
 							<div class="field ">
 							<input class="inputfield datepicker" type="text"  ng-model="generateobj.date" value="{{generateobj.date}}" create-datepicker  />
 							</div>
@@ -20,13 +20,13 @@
 						</div>
 					
 						<div class="fields code">
-							<div class="label ">Documento Da Generare </div>
+							<div class="GECO_label ">Documento Da Generare </div>
 							<div class="field">
 								<select  class="inputfield" ng-model="currentDocumentGenerate"  ng-data-provider="documents" create-chosen on-finish-chosen-update     ng-options="document as document.code for document in documents" ng-change="generateobj.generateDoc = currentDocumentGenerate" ></select>
 							</div>
 						</div>
 						<div class="fields code">
-								<div class="label ">Listino Da applicare </div>
+								<div class="GECO_label ">Listino Da applicare </div>
 								<div class="field">
 									<select id="selgroup" class="inputfield" ng-model="currentList"  ng-data-provider="lists" create-chosen on-finish-chosen-update     ng-options="list as list.code for list in lists" ng-change="generateobj.list = currentList" ></select>
 								</div>
@@ -37,13 +37,13 @@
 				<div class="info " ng-if="selectedSection == listsections[1]">		
 						<div class="category_group  ">
 							<div class="fields code">
-								<div class="label ">Cliente </div>
+								<div class="GECO_label ">Cliente </div>
 								<div class="field">
 									<select id="selgroup" class="inputfield" ng-model="currentCustomer"  ng-data-provider="customers" create-chosen on-finish-chosen-update     ng-options="customer as customer.customername for customer in customers" ng-change="generateobj.customer = currentCustomer;changeCustomer(currentCustomer.idCustomer)" ></select>
 								</div>
 							</div>
 							<div class="fields code">
-								<div class="label ">Fornitore </div>
+								<div class="GECO_label ">Fornitore </div>
 								<div class="field">
 									<select id="supplierList" class="inputfield" ng-model="currentSupplier"    ng-data-provider="suppliers" create-chosen on-finish-chosen-update   ng-options="supplier as supplier.suppliername for supplier in suppliers"  ng-change="generateobj.supplier = currentSupplier" ></select>
 								</div>
@@ -59,13 +59,13 @@
 					</div>
 				<div class="info" ng-show="selectedSection == listsections[0]">
 					<div class="fields code">
-						<div class="label ">Da Data </div>
+						<div class="GECO_label ">Da Data </div>
 						<div class="field ">
 						<input class="inputfield datepicker" type="text" id="endDate" ng-model="filter.fromDate" value="{{filter.fromDate}}"   />
 						</div>
 					</div>
 					<div class="fields code">
-						<div class="label ">A Data </div>
+						<div class="GECO_label ">A Data </div>
 						<div class="field ">
 						<input class="inputfield datepicker" type="text" id="startDate" ng-model="filter.toDate" value="{{filter.toDate}}"   />
 						</div>
@@ -73,7 +73,7 @@
 					</div>
 					
 						<div class="fields code">
-							<div class="label ">Documento Sorgente </div>
+							<div class="GECO_label ">Documento Sorgente </div>
 							<div class="field">
 								<select id="selgroup" class="inputfield" ng-model="currentDocument"   ng-data-provider="documents" create-chosen on-finish-chosen-update    ng-options="document as document.code for document in documents" ng-change="filter.sourcedoc = currentDocument" ></select>
 							</div>
@@ -82,19 +82,19 @@
 				<div class="info added_info" ng-show="selectedSection == listsections[0]">
 					<div class="category_group">
 							<div class="fields code">
-								<div class="label ">Cliente </div>
+								<div class="GECO_label ">Cliente </div>
 								<div class="field">
 									<select id="selgroup" class="inputfield" ng-model="currentCustomer"  ng-data-provider="customers" create-chosen on-finish-chosen-update     ng-options="customer as customer.customername for customer in customers" ng-change="filter.customer = currentCustomer;changeCustomer(currentCustomer.idCustomer)" ></select>
 								</div>
 							</div>
 							<div class="fields code">
-								<div class="label ">Fornitore </div>
+								<div class="GECO_label ">Fornitore </div>
 								<div class="field">
 									<select id="supplierList" class="inputfield" ng-model="currentSupplier"    ng-data-provider="suppliers" create-chosen on-finish-chosen-update   ng-options="supplier as supplier.suppliername for supplier in suppliers"  ng-change="filter.supplier = currentSupplier" ></select>
 								</div>
 							</div>
 							<div class="fields code">
-								<div class="label ">Destinazione </div>
+								<div class="GECO_label ">Destinazione </div>
 								<div class="field">
 									<select id="selgroup" class="inputfield" ng-model="currentDestination"   ng-data-provider="destinations" create-chosen on-finish-chosen-update    ng-options="destination as destination.destinationname for destination in destinations" ng-change="filter.destination = currentDestination" ></select>
 								</div>
@@ -102,13 +102,13 @@
 					</div>
 					<div class="category_group">
 						<div class="fields code">
-								<div class="label ">Vettore </div>
+								<div class="GECO_label ">Vettore </div>
 								<div class="field">
 									<select id="selgroup" class="inputfield" ng-model="currentTransporter"   ng-data-provider="transporters" create-chosen on-finish-chosen-update    ng-options="transporter as transporter.transportersurname for transporter in transporters"  ng-change="filter.transporter = currentTransporter" ></select>
 								</div>
 							</div>
 							<div class="fields code">
-									<div class="label ">&nbsp; </div>
+									<div class="GECO_label ">&nbsp; </div>
 									<div class="field">
 										&nbsp;
 									</div>

@@ -14,7 +14,7 @@
 			<div class="head_main_detail">	
 				<div class="info" >
 					<div class="fields code">
-						<div class="label ">Data </div>
+						<div class="GECO_label ">Data </div>
 						<div class="field ">
 						<input class="inputfield datepicker" type="text"  ng-model="filter.date" value="{{filter.date}}"  create-datepicker />
 						</div>
@@ -22,7 +22,7 @@
 					</div>
 					
 						<div class="fields code">
-							<div class="label ">Documento</div>
+							<div class="GECO_label ">Documento</div>
 							<div class="field">
 								<select  class="inputfield" ng-model="currentDocument" ng-data-provider="documents" create-chosen on-finish-chosen-update     ng-options="document as document.code for document in documents" ng-change="filter.document = currentDocument" ></select>
 							</div>

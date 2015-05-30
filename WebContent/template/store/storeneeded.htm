@@ -11,7 +11,7 @@
 			<div class="head_main_detail">	
 				<div class="info" ng-show="selectedSection == listsections[1]">
 					<div class="fields code">
-						<div class="label ">Data </div>
+						<div class="GECO_label ">Data </div>
 						<div class="field ">
 						<input class="inputfield datepicker" type="text"  ng-model="neededObj.date" value="{{neededObj.date}}"  create-datepicker />
 						</div>
@@ -19,7 +19,7 @@
 					</div>
 					
 						<div class="fields code">
-							<div class="label ">Documento Da Generare </div>
+							<div class="GECO_label ">Documento Da Generare </div>
 							<div class="field">
 								<select  class="inputfield" ng-model="currentDocumentGenerate"    ng-options="document as document.code for document in documents" ng-data-provider="documents" create-chosen on-finish-chosen-update  ng-change="neededObj.sourceDocument = currentDocumentGenerate" ></select>
 							</div>
@@ -37,13 +37,13 @@
 				</div>
 				<div class="info" ng-show="selectedSection == listsections[0]">
 					<div class="fields code">
-						<div class="label ">Data </div>
+						<div class="GECO_label ">Data </div>
 						<div class="field ">
 						<input class="inputfield datepicker" type="text" id="endDate" ng-model="filterObj.dateReserved" value="{{filterObj.dateReserved}}"  create-datepicker />
 						</div>
 					</div>
 					<div class="fields code">
-						<div class="label ">Fornitore </div>
+						<div class="GECO_label ">Fornitore </div>
 						<div class="field">
 							<select id="supplierList" class="inputfield" ng-model="currentSupplier"    ng-options="supplier as supplier.suppliername for supplier in suppliers" ng-data-provider="suppliers" create-chosen on-finish-chosen-update   ng-change="filterObj.supplier = currentSupplier" ></select>
 						</div>

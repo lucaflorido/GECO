@@ -990,6 +990,7 @@ public class DocumentDao {
 						}
 						if (deletedRow.size() > 0)
 							headToSave.getRows().removeAll(deletedRow);
+						
 						new DocumentDao().saveHead(headToSave);
 						index++;
 					}
